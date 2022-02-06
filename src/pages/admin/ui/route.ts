@@ -1,4 +1,5 @@
 import RouteViewComponent from '@/router/route-view.vue'
+import Typography from './typography/Typography.vue'
 
 export default {
   name: 'ui',
@@ -8,7 +9,7 @@ export default {
     {
       name: 'typography',
       path: 'typography',
-      component: () => import('@/pages/admin/ui/typography/Typography.vue'),
+      component: Typography,
     },
     {
       name: 'buttons',

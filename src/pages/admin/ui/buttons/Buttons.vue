@@ -42,12 +42,12 @@
               >
                 {{ $t('buttons.a-link') }}
               </va-button>
-              <va-button
+              <!-- <va-button
                 class="mr-2 mb-2"
                 :to="{ name: 'charts' }"
               >
                 {{ $t('buttons.router-link') }}
-              </va-button>
+              </va-button> -->
             </div>
           </va-card-content>
         </va-card>

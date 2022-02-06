@@ -6,6 +6,7 @@ import UIRoute from '../pages/admin/ui/route'
 
 import MarkupTables from '../pages/admin/tables/markup-tables/MarkupTables.vue'
 import DataTables from '../pages/admin/tables/data-tables/DataTables.vue'
+import Dashboard from '../pages/admin/dashboard/Dashboard.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -17,104 +18,104 @@ const routes: Array<RouteRecordRaw> = [
     path: '/admin',
     component: AppLayout,
     children: [
-      {
-        name: 'dashboard',
-        path: 'dashboard',
-        component: () => import('@/pages/admin/dashboard/Dashboard.vue'),
-      },
-      {
-        name: 'statistics',
-        path: 'statistics',
-        component: RouteViewComponent,
-        children: [
-          {
-            name: 'charts',
-            path: 'charts',
-            component: () => import('@/pages/admin/statistics/charts/Charts.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Charts',
-            },
-          },
-          {
-            name: 'progress-bars',
-            path: 'progress-bars',
-            component: () => import('@/pages/admin/statistics/progress-bars/ProgressBars.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Progress-Bars',
-            },
-          },
-        ],
-      },
-      {
-        name: 'forms',
-        path: 'forms',
-        component: RouteViewComponent,
-        children: [
-          {
-            name: 'form-elements',
-            path: 'form-elements',
-            component: () => import('@/pages/admin/forms/form-elements/FormElements.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/inputs',
-            },
-          },
-          {
-            name: 'medium-editor',
-            path: 'medium-editor',
-            component: () => import('@/pages/admin/forms/medium-editor/MediumEditor.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Medium-Editor',
-            },
-          },
-        ],
-      },
-      {
-        name: 'maps',
-        path: 'maps',
-        component: RouteViewComponent,
-        children: [
-          {
-            name: 'google-maps',
-            path: 'google-maps',
-            component: () => import('@/pages/admin/maps/google-maps/GoogleMapsPage.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
-            },
-          },
-          {
-            name: 'yandex-maps',
-            path: 'yandex-maps',
-            component: () => import('@/pages/admin/maps/yandex-maps/YandexMapsPage.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
-            },
-          },
-          {
-            name: 'leaflet-maps',
-            path: 'leaflet-maps',
-            component: () => import('@/pages/admin/maps/leaflet-maps/LeafletMapsPage.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
-            },
-          },
-          {
-            name: 'bubble-maps',
-            path: 'bubble-maps',
-            component: () => import('@/pages/admin/maps/bubble-maps/BubbleMapsPage.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
-            },
-          },
-          {
-            name: 'line-maps',
-            path: 'line-maps',
-            component: () => import('@/pages/admin/maps/line-maps/LineMapsPage.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
-            },
-          },
-        ],
-      },
+      // {
+      //   name: 'dashboard',
+      //   path: 'dashboard',
+      //   component: Dashboard,
+      // },
+      // {
+      //   name: 'statistics',
+      //   path: 'statistics',
+      //   component: RouteViewComponent,
+      //   children: [
+      //     {
+      //       name: 'charts',
+      //       path: 'charts',
+      //       component: () => import('@/pages/admin/statistics/charts/Charts.vue'),
+      //       meta: {
+      //         wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Charts',
+      //       },
+      //     },
+      //     {
+      //       name: 'progress-bars',
+      //       path: 'progress-bars',
+      //       component: () => import('@/pages/admin/statistics/progress-bars/ProgressBars.vue'),
+      //       meta: {
+      //         wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Progress-Bars',
+      //       },
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: 'forms',
+      //   path: 'forms',
+      //   component: RouteViewComponent,
+      //   children: [
+      //     {
+      //       name: 'form-elements',
+      //       path: 'form-elements',
+      //       component: () => import('@/pages/admin/forms/form-elements/FormElements.vue'),
+      //       meta: {
+      //         wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/inputs',
+      //       },
+      //     },
+      //     {
+      //       name: 'medium-editor',
+      //       path: 'medium-editor',
+      //       component: () => import('@/pages/admin/forms/medium-editor/MediumEditor.vue'),
+      //       meta: {
+      //         wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Medium-Editor',
+      //       },
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: 'maps',
+      //   path: 'maps',
+      //   component: RouteViewComponent,
+      //   children: [
+      //     {
+      //       name: 'google-maps',
+      //       path: 'google-maps',
+      //       component: () => import('@/pages/admin/maps/google-maps/GoogleMapsPage.vue'),
+      //       meta: {
+      //         wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
+      //       },
+      //     },
+      //     {
+      //       name: 'yandex-maps',
+      //       path: 'yandex-maps',
+      //       component: () => import('@/pages/admin/maps/yandex-maps/YandexMapsPage.vue'),
+      //       meta: {
+      //         wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
+      //       },
+      //     },
+      //     {
+      //       name: 'leaflet-maps',
+      //       path: 'leaflet-maps',
+      //       component: () => import('@/pages/admin/maps/leaflet-maps/LeafletMapsPage.vue'),
+      //       meta: {
+      //         wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
+      //       },
+      //     },
+      //     {
+      //       name: 'bubble-maps',
+      //       path: 'bubble-maps',
+      //       component: () => import('@/pages/admin/maps/bubble-maps/BubbleMapsPage.vue'),
+      //       meta: {
+      //         wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
+      //       },
+      //     },
+      //     {
+      //       name: 'line-maps',
+      //       path: 'line-maps',
+      //       component: () => import('@/pages/admin/maps/line-maps/LineMapsPage.vue'),
+      //       meta: {
+      //         wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Maps',
+      //       },
+      //     },
+      //   ],
+      // },
       {
         name: 'tables',
         path: 'tables',
@@ -158,31 +159,31 @@ const routes: Array<RouteRecordRaw> = [
       UIRoute,
     ]
   },
-  {
-    path: '/auth',
-    component: AuthLayout,
-    children: [
-      {
-        name: 'login',
-        path: 'login',
-        component: () => import('@/pages/auth/login/Login.vue'),
-      },
-      {
-        name: 'signup',
-        path: 'signup',
-        component: () => import('@/pages/auth/signup/Signup.vue'),
-      },
-      {
-        name: 'recover-password',
-        path: 'recover-password',
-        component: () => import('@/pages/auth/recover-password/RecoverPassword.vue'),
-      },
-      {
-        path: '',
-        redirect: { name: 'login' },
-      },
-    ],
-  },
+  // {
+  //   path: '/auth',
+  //   component: AuthLayout,
+  //   children: [
+  //     {
+  //       name: 'login',
+  //       path: 'login',
+  //       component: () => import('@/pages/auth/login/Login.vue'),
+  //     },
+  //     {
+  //       name: 'signup',
+  //       path: 'signup',
+  //       component: () => import('@/pages/auth/signup/Signup.vue'),
+  //     },
+  //     {
+  //       name: 'recover-password',
+  //       path: 'recover-password',
+  //       component: () => import('@/pages/auth/recover-password/RecoverPassword.vue'),
+  //     },
+  //     {
+  //       path: '',
+  //       redirect: { name: 'login' },
+  //     },
+  //   ],
+  // },
 ]
 
 export const router = createRouter({

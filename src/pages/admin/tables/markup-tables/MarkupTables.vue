@@ -3,7 +3,7 @@
     <va-card :title="$t('tables.basic')" class="flex mb-4">
       <va-card-content>
         <div class="table-wrapper">
-          <table class="va-table">
+          <table class="va-table va-table--hoverable">
             <thead>
               <tr>
                 <th>{{ $t('tables.headings.name') }}</th>
@@ -25,11 +25,11 @@
                 </td>
               </tr>
             </tbody>
-          </table>                
+          </table>
         </div>
       </va-card-content>
     </va-card>
-  
+
     <va-card :title="$t('tables.stripedHoverable')">
       <va-card-content>
         <div class="table-wrapper">
@@ -55,7 +55,7 @@
                 </td>
               </tr>
             </tbody>
-          </table>          
+          </table>
         </div>
       </va-card-content>
     </va-card>
@@ -66,13 +66,13 @@
 import data from '@/data/tables/markup-table/data.json'
 
 export default {
-  data () {
+  data() {
     return {
       users: data.slice(0, 8),
     }
   },
   methods: {
-    getStatusColor (status) {
+    getStatusColor(status) {
       if (status === 'paid') {
         return 'success'
       }
@@ -88,13 +88,13 @@ export default {
 </script>
 
 <style lang="scss">
-  .markup-tables {
-    .table-wrapper {
-      overflow: auto;
-    }
-
-    .va-table {
-      width: 100%;
-    }
+.markup-tables {
+  .table-wrapper {
+    overflow: auto;
   }
+
+  .va-table {
+    width: 100%;
+  }
+}
 </style>

@@ -5,7 +5,7 @@
         <va-card>
           <va-card-title>{{ $t('chat.title') }}</va-card-title>
           <va-card-content>
-            <chat v-model="chatMessages"/>
+            <chat v-model="chatMessages" />
           </va-card-content>
         </va-card>
       </div>
@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import Chat from './Chat'
+import Chat from './Chat.vue'
 
 export default {
   name: 'chat-page',
   components: { Chat },
-  data () {
+  data() {
     return {
       chatMessages: [
         {
@@ -43,7 +43,7 @@ export default {
           yours: false,
         },
         {
-          text: 'I\'m working on Vuestic, so let\'s meet at 3pm. Thanks!',
+          text: "I'm working on Vuestic, so let's meet at 3pm. Thanks!",
           yours: true,
         },
       ],
@@ -52,6 +52,4 @@ export default {
 }
 </script>
 
-<style lang='scss'>
-
-</style>
+<style lang="scss"></style>

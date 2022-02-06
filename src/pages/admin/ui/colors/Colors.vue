@@ -4,10 +4,7 @@
       <va-card>
         <va-card-title>{{ $t('colors.themeColors') }}</va-card-title>
         <va-card-content>
-          <div
-            v-for="(themeColor, index) in themeColors"
-            :key="index"
-          >
+          <div v-for="(themeColor, index) in themeColors" :key="index">
             <color-presentation
               :color="themeColor.color"
               :name="themeColor.name"
@@ -22,10 +19,7 @@
       <va-card>
         <va-card-title>{{ $t('colors.extraColors') }}</va-card-title>
         <va-card-content>
-          <div
-            v-for="(extraColor, index) in extraColors"
-            :key="index"
-          >
+          <div v-for="(extraColor, index) in extraColors" :key="index">
             <color-presentation
               :color="extraColor.color"
               :name="extraColor.name"
@@ -40,10 +34,7 @@
       <va-card>
         <va-card-title>{{ $t('colors.gradients.basic.title') }}</va-card-title>
         <va-card-content>
-          <div
-            v-for="(buttonGradient, index) in buttonGradients"
-            :key="index"
-          >
+          <div v-for="(buttonGradient, index) in buttonGradients" :key="index">
             <color-presentation
               :color="buttonGradient.color"
               :variant="['gradient']"
@@ -63,10 +54,7 @@
           <p class="mt-0 mb-2">
             {{ $t('colors.gradients.hovered.text') }}
           </p>
-          <div
-            v-for="(buttonGradient, index) in buttonGradients"
-            :key="index"
-          >
+          <div v-for="(buttonGradient, index) in buttonGradients" :key="index">
             <color-presentation
               :color="buttonGradient.color"
               :variant="['gradient', 'hovered']"
@@ -86,10 +74,7 @@
           <p class="mt-0 mb-2">
             {{ $t('colors.gradients.pressed.text') }}
           </p>
-          <div
-            v-for="(buttonGradient, index) in buttonGradients"
-            :key="index"
-          >
+          <div v-for="(buttonGradient, index) in buttonGradients" :key="index">
             <color-presentation
               :color="buttonGradient.color"
               :variant="['gradient', 'pressed']"
@@ -105,14 +90,14 @@
 </template>
 
 <script>
-import { themeColors, extraColors, buttonGradients } from './color-presentation/colorsData'
-import colorPresentation from './color-presentation/ColorPresentation'
+import colorPresentation from './color-presentation/ColorPresentation.vue'
+import { buttonGradients, extraColors, themeColors } from './color-presentation/colorsData.ts'
 
 export default {
   components: {
     colorPresentation,
   },
-  data () {
+  data() {
     return {
       themeColors,
       extraColors,

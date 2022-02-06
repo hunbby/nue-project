@@ -1,14 +1,18 @@
 <template>
   <div class="va-chat">
-    <div class="va-chat__body" :style="{ height: height }" v-sticky-scroll="{
-      animate: true,
-      duration: 500
-    }">
+    <div
+      class="va-chat__body"
+      :style="{ height: height }"
+      v-sticky-scroll="{
+        animate: true,
+        duration: 500,
+      }"
+    >
       <div
         class="va-chat__message"
         v-for="(message, index) in modelValue"
         :style="{
-          backgroundColor: message.yours ? theme.primary : undefined
+          backgroundColor: message.yours ? theme.primary : undefined,
         }"
         :key="index"
         :class="{ 'va-chat__message--yours': message.yours }"
@@ -26,82 +30,81 @@
         class="va-chat__input mr-2"
       />
       <va-button @click="sendMessage()">
-        {{ $t("chat.sendButton") }}
+        {{ $t('chat.sendButton') }}
       </va-button>
     </div>
   </div>
 </template>
 
 <script>
-import StickyScroll from './StickyScroll'
 import { useGlobalConfig } from 'vuestic-ui'
 
+import StickyScroll from './StickyScroll.ts'
+
 export default {
-  name: "chat",
+  name: 'chat',
   directives: { StickyScroll },
   data() {
     return {
-      inputMessage: ""
-    };
+      inputMessage: '',
+    }
   },
   props: {
     modelValue: {
       type: Array,
       default: () => [
         {
-          text:
-            "Hello! So glad you liked my work. Do you want me to shoot you?",
-          yours: false
+          text: 'Hello! So glad you liked my work. Do you want me to shoot you?',
+          yours: false,
         },
         {
-          text: "Yeah, that would be cool. Maybe this Sunday at 3 pm?",
-          yours: true
+          text: 'Yeah, that would be cool. Maybe this Sunday at 3 pm?',
+          yours: true,
         },
         {
-          text: "Sounds great! See you later!",
-          yours: false
+          text: 'Sounds great! See you later!',
+          yours: false,
         },
         {
-          text: "Should I bring a lightbox with me?",
-          yours: true
+          text: 'Should I bring a lightbox with me?',
+          yours: true,
         },
         {
-          text:
-            "No, thanks. There is no need. Can we set up a meeting earlier?",
-          yours: false
+          text: 'No, thanks. There is no need. Can we set up a meeting earlier?',
+          yours: false,
         },
         {
           text: "I'm working on Vuestic, so let's meet at 3pm. Thanks!",
-          yours: true
-        }
-      ]
+          yours: true,
+        },
+      ],
     },
     height: {
-      default: "20rem",
-      type: String
-    }
+      default: '20rem',
+      type: String,
+    },
   },
   methods: {
     sendMessage() {
       if (!this.inputMessage) {
-        return;
+        return
       }
       this.$emit(
-        "update:modelValue",
+        'update:modelValue',
         this.modelValue.concat({
           text: this.inputMessage,
-          yours: true
+          yours: true,
         })
-      );
-      this.inputMessage = "";
-    }
+      )
+      this.inputMessage = ''
+    },
   },
   computed: {
     theme() {
       return useGlobalConfig().getGlobalConfig().colors
     },
-  }
-};
+  },
+}
 </script>
 
 <style lang="scss">
