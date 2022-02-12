@@ -1,53 +1,49 @@
 <template>
-  <va-sidebar
-    :width="width"
-    :minimized="minimized" 
-    :minimizedWidth="minimizedWidth"
-  >
+  <va-sidebar :width="width" :minimized="minimized" :minimized-width="minimizedWidth">
     <menu-minimized v-if="minimized" :items="items" />
     <menu-accordion v-else :items="items" />
-  </va-sidebar>    
+  </va-sidebar>
 </template>
 
 <script>
-import { useGlobalConfig } from 'vuestic-ui';
-import MenuAccordion from './menu/MenuAccordion.vue';
-import MenuMinimized from './menu/MenuMinimized.vue';
-import NavigationRoutes from './NavigationRoutes';
+import { useGlobalConfig } from 'vuestic-ui'
 
+import MenuAccordion from './menu/MenuAccordion.vue'
+import MenuMinimized from './menu/MenuMinimized.vue'
+import NavigationRoutes from './NavigationRoutes'
 
 export default {
-  name: "app-sidebar",
+  name: 'AppSidebar',
   components: {
     MenuAccordion,
     MenuMinimized,
   },
   props: {
     width: { type: String, default: '16rem' },
-    color: { type: String, default: "secondary" },
+    color: { type: String, default: 'secondary' },
     minimized: { type: Boolean, required: true },
     minimizedWidth: {
-      type: Boolean,
+      type: String,
       required: false,
-      default: undefined
+      default: undefined,
     },
   },
   data() {
     return {
       items: NavigationRoutes.routes,
-    };
+    }
   },
   computed: {
     computedClass() {
       return {
-        "app-sidebar--minimized": this.minimized
-      };
+        'app-sidebar--minimized': this.minimized,
+      }
     },
     colors() {
       return useGlobalConfig().getGlobalConfig().colors
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
