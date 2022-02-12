@@ -1,21 +1,17 @@
 <template>
-  <va-dropdown
-    class="language-dropdown"
-    fixed
-    position="bottom"
-    :offset="[0, 13]"
-  >
+  <va-dropdown class="language-dropdown" fixed position="bottom" :offset="[0, 13]">
     <template #anchor>
-      <va-icon :name="flagIcon(currentLanguage(), 'large')"/>
+      <va-icon :name="flagIcon(currentLanguage(), 'large')" />
     </template>
     <va-dropdown-content class="language-dropdown__content pl-4 pr-4 pt-2 pb-2">
-      <div class="language-dropdown__item row align--center pt-1 pb-1 mt-2 mb-2"
+      <div
+        class="language-dropdown__item row align--center pt-1 pb-1 mt-2 mb-2"
         v-for="(option, id) in options"
         :key="id"
         :class="{ active: option.code === currentLanguage() }"
         @click="setLanguage(option.code)"
       >
-        <va-icon :name="flagIcon(option.code, 'small')"/>
+        <va-icon :name="flagIcon(option.code, 'small')" />
         <span class="dropdown-item__text">
           {{ $t(`language.${option.name}`) }}
         </span>
@@ -62,23 +58,23 @@ export default {
     },
   },
   methods: {
-    setLanguage (locale) {
+    setLanguage(locale) {
       this.$root.$i18n.locale = locale
     },
 
-    currentLanguage () {
+    currentLanguage() {
       return this.$i18n.locale === 'en' ? 'gb' : this.$i18n.locale
     },
 
     flagIcon(code, size) {
       return `flag-icon-${code} ${size}`
-    }
+    },
   },
 }
 </script>
 
 <style lang="scss">
-@import "~/flag-icon-css/css/flag-icons.css";
+@import 'flag-icon-css/css/flag-icons.css';
 
 .language-dropdown {
   cursor: pointer;
@@ -106,7 +102,7 @@ export default {
   }
 
   .flag-icon::before {
-    content: "";
+    content: '';
   }
 
   .flag-icon-large {

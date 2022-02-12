@@ -1,22 +1,22 @@
 <template>
   <div class="app-navbar-actions">
-    <color-dropdown class="app-navbar-actions__item"/>
-    <message-dropdown class="app-navbar-actions__item"/>
-    <notification-dropdown class="app-navbar-actions__item"/>
+    <color-dropdown class="app-navbar-actions__item" />
+    <message-dropdown class="app-navbar-actions__item" />
+    <notification-dropdown class="app-navbar-actions__item" />
     <!-- <settings-dropdown class="app-navbar-actions__item" /> -->
-    <language-dropdown class="app-navbar-actions__item"/>
+    <language-dropdown class="app-navbar-actions__item" />
     <profile-dropdown class="app-navbar-actions__item app-navbar-actions__item--profile">
-      <span>{{userName}}</span>
+      <span>{{ userName }}</span>
     </profile-dropdown>
   </div>
 </template>
 
 <script>
-import LanguageDropdown from './dropdowns/LanguageDropdown.vue'
-import ProfileDropdown from './dropdowns/ProfileDropdown.vue'
-import NotificationDropdown from './dropdowns/NotificationDropdown.vue'
-import MessageDropdown from './dropdowns/MessageDropdown.vue'
 import ColorDropdown from './dropdowns/color-dropdown/ColorDropdown.vue'
+import LanguageDropdown from './dropdowns/LanguageDropdown.vue'
+import MessageDropdown from './dropdowns/MessageDropdown.vue'
+import NotificationDropdown from './dropdowns/NotificationDropdown.vue'
+import ProfileDropdown from './dropdowns/ProfileDropdown.vue'
 import SettingsDropdown from './dropdowns/SettingsDropdown.vue'
 
 export default {
@@ -44,10 +44,10 @@ export default {
 
   computed: {
     isTopBarProxy: {
-      get () {
+      get() {
         return this.isTopBar
       },
-      set (isTopBar) {
+      set(isTopBar) {
         this.$emit('update:isTopBar', isTopBar)
       },
     },
@@ -64,12 +64,12 @@ export default {
     color: var(--va-primary);
     fill: var(--va-primary);
   }
-  
+
   &__item {
     padding: 0;
     margin-left: 1.25rem;
     margin-right: 1.25rem;
-    
+
     svg {
       height: 24px;
     }

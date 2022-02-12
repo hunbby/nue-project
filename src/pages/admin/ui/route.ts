@@ -1,4 +1,5 @@
 import RouteViewComponent from '@/router/route-view.vue'
+
 import Typography from './typography/Typography.vue'
 
 export default {

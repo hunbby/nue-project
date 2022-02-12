@@ -2,10 +2,7 @@
   <div class="icon-set">
     <va-card class="icon-set__header mb-4 py-3 ma-0">
       <va-card-title>
-        <h2
-          class="my-0 ml-2"
-          :style="{ color: theme.dark }"
-        >
+        <h2 class="my-0 ml-2" :style="{ color: theme.dark }">
           {{ iconSet.name }}
         </h2>
       </va-card-title>
@@ -21,11 +18,11 @@
             v-model="search"
             :label="$t('icons.search')"
             class="mb-0"
-            style="max-width: 300px;"
+            style="max-width: 300px"
             removable
           >
             <template v-slot:prependInner>
-              <va-icon class="icon-left input-icon" name="search"/>
+              <va-icon class="icon-left input-icon" name="search" />
             </template>
           </va-input>
         </div>
@@ -40,12 +37,11 @@
           <va-slider
             value-visible
             v-model="iconSize"
-            style="max-width: 300px;"
+            style="max-width: 300px"
             :label-value="`${iconSize}px`"
             :min="slider.min"
             :max="slider.max"
-          >
-          </va-slider>
+          ></va-slider>
           <span
             class="ma-2 pl-2 shrink icon-set__header__size--bigger"
             :style="{ color: theme.dark }"
@@ -56,13 +52,9 @@
       </va-card-content>
     </va-card>
 
-    <va-card
-      v-for="(list, index) in filteredLists"
-      :key="index"
-      class="flex md12"
-    >
+    <va-card v-for="(list, index) in filteredLists" :key="index" class="flex md12">
       <va-card-title>
-        {{list.name}}
+        {{ list.name }}
       </va-card-title>
       <va-card-content class="row">
         <span v-if="list.icons.length === 0">
@@ -70,12 +62,12 @@
         </span>
         <div
           class="flex flex-center xs3 md1 mb-2 icon-grid-container"
-          style="flex-direction: column;"
+          style="flex-direction: column"
           v-for="icon in list.icons"
           :key="icon"
         >
           <div class="vuestic-icon mb-3 pt-3">
-            <va-icon :class="iconClass(icon)" :size="iconSize">{{iconData(icon)}}</va-icon>
+            <va-icon :class="iconClass(icon)" :size="iconSize">{{ iconData(icon) }}</va-icon>
           </div>
           <div class="icon-text">
             {{ icon }}
@@ -90,7 +82,7 @@
 import { useGlobalConfig } from 'vuestic-ui'
 
 export default {
-  name: 'icon-set',
+  name: 'IconSet',
   props: {
     name: {
       type: String,
@@ -100,37 +92,39 @@ export default {
       type: Array,
     },
   },
-  data () {
+  data() {
     return {
       search: '',
       iconSize: 30,
       slider: {
-        formatter: v => `${v}px`,
+        formatter: (v) => `${v}px`,
         min: 20,
         max: 40,
       },
     }
   },
   computed: {
-    theme () {
+    theme() {
       return useGlobalConfig().getGlobalConfig().colors
     },
-    iconSet () {
+    iconSet() {
       for (const set of this.sets) {
-        if (set.href === this.name) {return set}
+        if (set.href === this.name) {
+          return set
+        }
       }
 
       return {}
     },
-    filteredLists () {
+    filteredLists() {
       if (!this.search) {
         // If nothing is searched - we return all sets
         return this.iconSet.lists
       }
 
       const foundIcons = []
-      this.iconSet.lists.forEach(list => {
-        list.icons.forEach(icon => {
+      this.iconSet.lists.forEach((list) => {
+        list.icons.forEach((icon) => {
           if (!icon.toUpperCase().includes(this.search.toUpperCase())) {
             return
           }
@@ -143,17 +137,21 @@ export default {
       })
 
       // We return all found icons as a single set.
-      return [{
-        name: 'Found Icons',
-        icons: foundIcons,
-      }]
+      return [
+        {
+          name: 'Found Icons',
+          icons: foundIcons,
+        },
+      ]
     },
   },
   methods: {
-    iconClass (icon) {
-      return this.iconSet.prefix === 'material-icons' ? this.iconSet.prefix : `${this.iconSet.prefix} ${this.iconSet.prefix}-${icon}`
+    iconClass(icon) {
+      return this.iconSet.prefix === 'material-icons'
+        ? this.iconSet.prefix
+        : `${this.iconSet.prefix} ${this.iconSet.prefix}-${icon}`
     },
-    iconData (icon) {
+    iconData(icon) {
       return this.iconSet.prefix === 'material-icons' ? icon : ''
     },
   },

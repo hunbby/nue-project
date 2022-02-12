@@ -1,31 +1,17 @@
 <template>
   <div class="row">
-    <div
-      class="va-card-wrapper flex lg6 xs12"
-      v-for="(set, index) in sets"
-      :key="index"
-    >
+    <div v-for="(set, index) in sets" :key="index" class="va-card-wrapper flex lg6 xs12">
       <va-card>
-        <router-link
-          :to="{ path: `icons/${set.href}` }"
-          append
-          style="color: inherit"
-        >
+        <router-link :to="{ path: `icons/${set.href}` }" append style="color: inherit">
           <div class="sets-list__set__content">
-            <div
-              class="sets-list__set__content__overlay flex-center pa-3 fill-height"
-            >
+            <div class="sets-list__set__content__overlay flex-center pa-3 fill-height">
               <va-button>
                 {{ set.name.toUpperCase() }}
               </va-button>
             </div>
 
             <template v-for="(filteredList, index) in set.filteredLists">
-              <div
-                class="row pa-3"
-                :key="index"
-                v-if="filteredList.length !== 2"
-              >
+              <div class="row pa-3" :key="index" v-if="filteredList.length !== 2">
                 <div
                   class="flex xs2 flex-center"
                   v-for="(icon, index) in filteredList"
@@ -69,10 +55,10 @@ export default {
   },
   methods: {
     iconClass(set, icon) {
-      return `${set.prefix}-${icon}`;
+      return `${set.prefix}-${icon}`
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
