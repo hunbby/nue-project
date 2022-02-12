@@ -22,10 +22,7 @@
       d="M424.664 32.3999V14.2769H429.794L432.526 21.6934C432.694 22.1953 432.852 22.7157 433 23.2548C433.149 23.7938 433.307 24.3328 433.474 24.8719H433.586C433.753 24.3328 433.911 23.7938 434.06 23.2548C434.208 22.7157 434.366 22.1953 434.534 21.6934L437.155 14.2769H442.285V32.3999H437.935V27.0467C437.935 26.582 437.954 26.0708 437.991 25.5132C438.047 24.9555 438.103 24.3886 438.158 23.8124C438.214 23.2176 438.279 22.6414 438.354 22.0837C438.428 21.5261 438.493 21.0242 438.549 20.5781H438.437L436.932 24.9277L434.701 30.9222H432.136L429.905 24.9277L428.456 20.5781H428.344C428.4 21.0242 428.465 21.5261 428.539 22.0837C428.614 22.6414 428.679 23.2176 428.734 23.8124C428.79 24.3886 428.837 24.9555 428.874 25.5132C428.93 26.0708 428.957 26.582 428.957 27.0467V32.3999H424.664Z"
       :fill="colorsComputed.start"
     />
-    <path
-      d="M450.028 32.3999V14.2769H454.823V32.3999H450.028Z"
-      :fill="colorsComputed.start"
-    />
+    <path d="M450.028 32.3999V14.2769H454.823V32.3999H450.028Z" :fill="colorsComputed.start" />
     <path
       d="M462.567 32.3999V14.2769H467.474L471.489 22.3625L473.218 26.4333H473.329C473.274 25.95 473.209 25.4202 473.134 24.844C473.06 24.2678 472.995 23.6823 472.939 23.0875C472.883 22.4741 472.828 21.87 472.772 21.2752C472.735 20.6618 472.716 20.0762 472.716 19.5186V14.2769H477.289V32.3999H472.381L468.366 24.2864L466.638 20.2435H466.526C466.638 21.2845 466.768 22.4183 466.917 23.6451C467.065 24.8719 467.14 26.0429 467.14 27.1582V32.3999H462.567Z"
       :fill="colorsComputed.start"
@@ -46,23 +43,23 @@
   </svg>
 </template>
 <script>
-import { useColors } from "vuestic-ui";
+import { useColors } from 'vuestic-ui'
 
 export default {
-  name: "VaIconVuestic",
+  name: 'VaIconVuestic',
 
   props: {
     height: { type: [Number, String], default: 16 },
-    color: { type: [String], default: "primary" },
+    color: { type: [String], default: 'primary' },
   },
 
   computed: {
     colorsComputed() {
-      const { getColor, shiftHSLAColor } = useColors();
-      const color = getColor(this.color, "primary");
+      const { getColor, shiftHSLAColor } = useColors()
+      const color = getColor(this.color, 'primary')
 
-      return { start: color, end: shiftHSLAColor(color, { l: -20 }) };
+      return { start: color, end: shiftHSLAColor(color, { l: -20 }) }
     },
   },
-};
+}
 </script>

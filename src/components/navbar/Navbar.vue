@@ -9,19 +9,19 @@
             :color="colors.primary"
             @click="isSidebarMinimized = !isSidebarMinimized"
           />
-          <router-link to="/">
+          <router-link to="/tables/markup">
             <vuestic-logo class="logo" />
           </router-link>
         </div>
       </template>
-      <template v-slot:center>
+      <template #center>
         <span class="app-navbar__text">
-          {{ $t('navbar.messageUs') }}&nbsp;
-          <a href="mailto:hello@epicmax.co" target="_blank" :style="{ color: colors.primary }">
-            hello@epicmax.co
+          개인 프로젝트&nbsp;
+          <a href="mailto:rn1349@naver.com" target="_blank" :style="{ color: colors.primary }">
+            rn1349@naver.com
           </a>
           <va-button
-            href="https://github.com/epicmaxco/vuestic-admin"
+            href="https://github.com/hunbby/vue-project"
             color="#000000"
             class="app-navbar__github-button"
             icon="github"
