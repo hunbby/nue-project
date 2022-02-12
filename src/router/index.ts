@@ -1,16 +1,16 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import AppLayout from "../layout/app-layout.vue";
-import AuthLayout from '../layout/auth-layout.vue'
-import RouteViewComponent from './route-view.vue'
-import UIRoute from '../pages/admin/ui/route'
 
-import MarkupTables from '../pages/admin/tables/markup-tables/MarkupTables.vue'
-import DataTables from '../pages/admin/tables/data-tables/DataTables.vue'
+import AppLayout from '../layout/app-layout.vue'
+import AuthLayout from '../layout/auth-layout.vue'
 import Dashboard from '../pages/admin/dashboard/Dashboard.vue'
+import DataTables from '../pages/admin/tables/data-tables/DataTables.vue'
+import MarkupTables from '../pages/admin/tables/markup-tables/MarkupTables.vue'
+import UIRoute from '../pages/admin/ui/route'
+import RouteViewComponent from './route-view.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/:catchAll(.*)",
+    path: '/:catchAll(.*)',
     redirect: { name: 'markup' },
   },
   {
@@ -117,27 +117,28 @@ const routes: Array<RouteRecordRaw> = [
       //   ],
       // },
       {
-        name: 'tables',
-        path: 'tables',
-        component: RouteViewComponent,
-        children: [
-          {
-            name: 'markup',
-            path: 'markup',
-            component: MarkupTables,
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Tables',
-            },
-          },
-          {
-            name: 'data',
-            path: 'data',
-            component: DataTables,
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Tables',
-            },
-          },
-        ],
+        name: 'markup',
+        path: 'markup',
+        component: MarkupTables,
+        // component: RouteViewComponent,
+        // children: [
+        //   {
+        //     name: 'markup',
+        //     path: 'markup',
+        //     component: MarkupTables,
+        //     meta: {
+        //       wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Tables',
+        //     },
+        //   },
+        //   {
+        //     name: 'data',
+        //     path: 'data',
+        //     component: DataTables,
+        //     meta: {
+        //       wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Tables',
+        //     },
+        //   },
+        // ],
       },
       {
         name: 'pages',
@@ -157,7 +158,7 @@ const routes: Array<RouteRecordRaw> = [
         ],
       },
       UIRoute,
-    ]
+    ],
   },
   // {
   //   path: '/auth',
@@ -188,7 +189,7 @@ const routes: Array<RouteRecordRaw> = [
 
 export const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
 
 export default router

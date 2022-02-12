@@ -2,19 +2,26 @@
   <va-dropdown
     v-for="(route, idx) in items"
     :key="idx"
+    v-model="dropdownsValue[idx]"
     position="right"
     fixed
     :offset="[0, 8]"
-    :preventOverflow="false"
-    v-model="dropdownsValue[idx]"
+    :prevent-overflow="false"
   >
     <template #anchor>
-      <va-sidebar-item :active="isItemChildsActive(route)" :to="route.children ? undefined : { name: route.name }">
+      <va-sidebar-item
+        :active="isItemChildsActive(route)"
+        :to="route.children ? undefined : { name: route.name }"
+      >
         <va-sidebar-item-content>
           <va-sidebar-item-title>
-            <va-icon :name="route.meta.icon" class="va-sidebar-item__icon"/>
+            <va-icon :name="route.meta.icon" class="va-sidebar-item__icon" />
           </va-sidebar-item-title>
-          <va-icon v-if="route.children" class="more_icon" :name="dropdownsValue[idx] ? 'chevron_left' : 'chevron_right'"/>          
+          <va-icon
+            v-if="route.children"
+            class="more_icon"
+            :name="dropdownsValue[idx] ? 'chevron_left' : 'chevron_right'"
+          />
         </va-sidebar-item-content>
       </va-sidebar-item>
     </template>
@@ -24,7 +31,7 @@
           <va-sidebar-item-content>
             <va-sidebar-item-title>
               {{ $t(child.displayName) }}
-            </va-sidebar-item-title>            
+            </va-sidebar-item-title>
           </va-sidebar-item-content>
         </va-sidebar-item>
       </template>
@@ -33,16 +40,16 @@
 </template>
 
 <script>
-import { useGlobalConfig } from 'vuestic-ui';
+import { useGlobalConfig } from 'vuestic-ui'
 
 export default {
-  name: "AppMenuMinimized",
+  name: 'AppMenuMinimized',
   props: {
-    items: { type: Array, default: () => [] }
+    items: { type: Array, default: () => [] },
   },
-  data () {
+  data() {
     return {
-      dropdownsValue: []
+      dropdownsValue: [],
     }
   },
   computed: {
@@ -52,25 +59,25 @@ export default {
   },
   methods: {
     isGroup(item) {
-      return !!item.children;
+      return !!item.children
     },
     isRouteActive(item) {
-      return item.name === this.$route.name;
+      return item.name === this.$route.name
     },
     isItemChildsActive(item) {
       if (!item.children) {
-        return false;
+        return false
       }
 
-      const isCurrentItemActive = this.isRouteActive(item);
-      const isChildActive = !!item.children.find(child =>
+      const isCurrentItemActive = this.isRouteActive(item)
+      const isChildActive = !!item.children.find((child) =>
         child.children ? this.isItemChildsActive(child) : this.isRouteActive(child)
-      );
+      )
 
-      return isCurrentItemActive || isChildActive;
+      return isCurrentItemActive || isChildActive
     },
-  }
-};
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -105,6 +112,4 @@ export default {
     }
   }
 }
-
-
 </style>

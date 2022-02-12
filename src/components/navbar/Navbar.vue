@@ -9,7 +9,7 @@
             :color="colors.primary"
             @click="isSidebarMinimized = !isSidebarMinimized"
           />
-          <router-link to="/tables/markup">
+          <router-link :to="{ name: 'markup' }">
             <vuestic-logo class="logo" />
           </router-link>
         </div>

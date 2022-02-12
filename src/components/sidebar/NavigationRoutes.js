@@ -48,17 +48,11 @@ export default {
     //   ],
     // },
     {
-      name: 'tables',
+      name: 'markup',
       displayName: 'menu.tables',
       meta: {
         icon: 'vuestic-iconset-tables',
       },
-      children: [
-        {
-          name: 'markup',
-          displayName: 'menu.markupTables',
-        }
-      ],
     },
     {
       name: 'ui',

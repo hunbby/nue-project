@@ -1,4 +1,5 @@
 import 'vuestic-ui/dist/vuestic-ui.css'
+import 'jquery'
 
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
