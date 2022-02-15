@@ -3,17 +3,17 @@
     <va-card>
       <va-card-title>{{ $t('spacing.title') }}</va-card-title>
       <va-card-content>
-        <spacing-playgroud :title="''"/>
+        <spacing-playgroud :title="''" />
       </va-card-content>
     </va-card>
   </div>
 </template>
 
 <script>
-import SpacingPlaygroud from './SpacingPlaygroud'
+import SpacingPlaygroud from './SpacingPlaygroud.vue'
 
 export default {
-  name: 'spacing',
+  name: 'Spacing',
   components: { SpacingPlaygroud },
 }
 </script>

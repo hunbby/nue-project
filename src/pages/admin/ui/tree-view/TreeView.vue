@@ -6,7 +6,7 @@
           <va-card>
             <va-card-title>{{ $t('treeView.basic') }}</va-card-title>
             <va-card-content>
-              <tree-view-basic-preview/>
+              <tree-view-basic-preview />
             </va-card-content>
           </va-card>
         </div>
@@ -15,7 +15,7 @@
           <va-card>
             <va-card-title>{{ $t('treeView.icons') }}</va-card-title>
             <va-card-content>
-              <tree-view-icons-preview/>
+              <tree-view-icons-preview />
             </va-card-content>
           </va-card>
         </div>
@@ -26,7 +26,7 @@
           <va-card>
             <va-card-title>{{ $t('treeView.advanced') }}</va-card-title>
             <va-card-content>
-              <tree-view-advanced-preview/>
+              <tree-view-advanced-preview />
             </va-card-content>
           </va-card>
         </div>
@@ -35,7 +35,7 @@
           <va-card>
             <va-card-title>{{ $t('treeView.editable') }}</va-card-title>
             <va-card-content>
-              <tree-view-editable-preview/>
+              <tree-view-editable-preview />
             </va-card-content>
           </va-card>
         </div>
@@ -46,7 +46,7 @@
           <va-card>
             <va-card-title>{{ $t('treeView.selectable') }}</va-card-title>
             <va-card-content>
-              <tree-view-selectable-preview/>
+              <tree-view-selectable-preview />
             </va-card-content>
           </va-card>
         </div>
@@ -56,14 +56,14 @@
 </template>
 
 <script>
-import TreeViewBasicPreview from './TreeViewBasicPreview'
-import TreeViewIconsPreview from './TreeViewIconsPreview'
-import TreeViewSelectablePreview from './TreeViewSelectablePreview'
-import TreeViewAdvancedPreview from './TreeViewAdvancedPreview'
-import TreeViewEditablePreview from './TreeViewEditablePreview'
+import TreeViewAdvancedPreview from './TreeViewAdvancedPreview.vue'
+import TreeViewBasicPreview from './TreeViewBasicPreview.vue'
+import TreeViewEditablePreview from './TreeViewEditablePreview.vue'
+import TreeViewIconsPreview from './TreeViewIconsPreview.vue'
+import TreeViewSelectablePreview from './TreeViewSelectablePreview.vue'
 
 export default {
-  name: 'tree-view',
+  name: 'TreeView',
   components: {
     TreeViewEditablePreview,
     TreeViewAdvancedPreview,
@@ -71,7 +71,7 @@ export default {
     TreeViewIconsPreview,
     TreeViewBasicPreview,
   },
-  data () {
+  data() {
     return {
       treeViewData: {},
     }

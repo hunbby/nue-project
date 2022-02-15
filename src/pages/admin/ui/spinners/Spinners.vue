@@ -17,38 +17,27 @@
           </div>
 
           <div class="d-flex flex xs12 lg4 align--center">
-            <va-icon-slower class="shrink pr-3 spinners__duration-slower"/>
+            <va-icon-slower class="shrink pr-3 spinners__duration-slower" />
             <va-slider
               value-visible
               v-model="currentDuration"
               :min="sliderDuration.min"
               :max="sliderDuration.max"
             />
-            <va-icon-faster class="shrink pl-3 spinners__duration-faster"/>
+            <va-icon-faster class="shrink pl-3 spinners__duration-faster" />
           </div>
 
           <div class="d-flex flex justify--center xs12 lg4">
-            <va-color-palette
-              :palette="paletteArray"
-              v-model="spinnersColor"
-            />
+            <va-color-palette :palette="paletteArray" v-model="spinnersColor" />
           </div>
         </div>
 
         <div class="content">
-          <hr class="separator">
+          <hr class="separator" />
         </div>
 
-        <div
-          v-for="(group, i) in groups"
-          :key="i"
-          class="row"
-        >
-          <div
-            v-for="item in group"
-            :key="item"
-            class="flex sm6 xs12 lg3"
-          >
+        <div v-for="(group, i) in groups" :key="i" class="row">
+          <div v-for="item in group" :key="item" class="flex sm6 xs12 lg3">
             <div class="text--center pb-4">
               <div class="flex-center spinner-box">
                 <component
@@ -56,8 +45,7 @@
                   :is="item"
                   :color="computedSpinnersColor"
                   :size="config.size"
-                >
-                </component>
+                ></component>
               </div>
               <div>{{ $t(item) }}</div>
             </div>
@@ -70,10 +58,11 @@
 
 <script>
 import * as spinners from 'epic-spinners'
+import { getColor, useGlobalConfig } from 'vuestic-ui'
 import { mapGetters } from 'vuex'
-import { useGlobalConfig, getColor } from 'vuestic-ui'
-import VaIconFaster from '../../../../components/icons/VaIconFaster'
-import VaIconSlower from '../../../../components/icons/VaIconSlower'
+
+import VaIconFaster from '../../../../components/icons/VaIconFaster.vue'
+import VaIconSlower from '../../../../components/icons/VaIconSlower.vue'
 
 export default {
   components: {
@@ -81,7 +70,7 @@ export default {
     VaIconFaster,
     VaIconSlower,
   },
-  data () {
+  data() {
     return {
       config: {
         size: 80,
@@ -91,7 +80,7 @@ export default {
       currentDuration: 1500,
       spinnersColor: 'primary',
       sliderSize: {
-        formatter: v => `${v}px`,
+        formatter: (v) => `${v}px`,
         min: 40,
         max: 100,
       },
@@ -112,26 +101,29 @@ export default {
       return getColor(this.spinnersColor)
     },
 
-    speed () {
+    speed() {
       return this.sliderDuration.min + this.sliderDuration.max - this.currentDuration
     },
 
-    groups () {
+    groups() {
       return this.groupItems(Object.keys(spinners), this.config.group)
     },
 
-    paletteArray () {
+    paletteArray() {
       return ['primary', 'success', 'danger', 'warning', 'dark']
     },
   },
 
   filters: {
-    displayName (name) {
-      return name.replace('Spinner', '').match(/[A-Z][a-z]+/g).join(' ')
+    displayName(name) {
+      return name
+        .replace('Spinner', '')
+        .match(/[A-Z][a-z]+/g)
+        .join(' ')
     },
   },
   methods: {
-    groupItems (items, groupSize) {
+    groupItems(items, groupSize) {
       const grouped = []
 
       for (let i = 0; i < items.length; i += groupSize) {
