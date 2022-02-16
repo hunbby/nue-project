@@ -29,6 +29,12 @@ module.exports = {
     'vue/html-indent': 'off',
     'vue/html-self-closing': 'off',
     'vue/multi-word-component-names': 0,
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
   plugins: ['simple-import-sort'],
 }

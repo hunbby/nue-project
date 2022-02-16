@@ -36,7 +36,7 @@
           <table class="va-table va-table--striped va-table--hoverable">
             <thead>
               <tr>
-                <th>Names</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Country</th>
                 <th>Status</th>
