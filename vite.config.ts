@@ -6,6 +6,9 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    port: 18080,
+  },
   resolve: {
     alias: {
       vue: 'vue/dist/vue.esm-bundler.js',
