@@ -19,14 +19,14 @@
 <script>
 export default {
   name: 'recover-password',
-  data () {
+  data() {
     return {
       email: '',
       emailErrors: [],
     }
   },
   methods: {
-    onsubmit () {
+    onsubmit() {
       if (!this.email) {
         this.emailErrors = ['Email is required']
       } else {
@@ -37,5 +37,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

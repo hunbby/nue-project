@@ -2,7 +2,7 @@
   <div class="auth-layout row align-content--center">
     <div class="flex xs12 pa-3 flex-center">
       <router-link class="py-5 flex-center" to="/">
-        <vuestic-logo height="32"/>
+        <vuestic-logo height="32" />
       </router-link>
     </div>
 
@@ -12,8 +12,8 @@
           <va-card-content>
             <va-tabs v-model="tabIndex" center>
               <template #tabs>
-                <va-tab name="login">{{ $t("auth.login") }}</va-tab>
-                <va-tab name="signup">{{ $t("auth.createNewAccount") }}</va-tab>
+                <va-tab name="login">{{ $t('auth.login') }}</va-tab>
+                <va-tab name="signup">{{ $t('auth.createNewAccount') }}</va-tab>
               </template>
             </va-tabs>
 
@@ -30,26 +30,26 @@
 </template>
 
 <script>
-import VuesticLogo from "../components/vuestic-logo.vue";
+import VuesticLogo from '../components/vuestic-logo.vue'
 
 export default {
   components: { VuesticLogo },
   data() {
     return {
-      selectedTabIndex: 0
-    };
+      selectedTabIndex: 0,
+    }
   },
   computed: {
     tabIndex: {
       set(tabName) {
-        this.$router.push({ name: tabName });
+        this.$router.push({ name: tabName })
       },
       get() {
-        return this.$route.name;
-      }
-    }
-  }
-};
+        return this.$route.name
+      },
+    },
+  },
+}
 </script>
 
 <style lang="scss">

@@ -160,31 +160,31 @@ const routes: Array<RouteRecordRaw> = [
       UIRoute,
     ],
   },
-  // {
-  //   path: '/auth',
-  //   component: AuthLayout,
-  //   children: [
-  //     {
-  //       name: 'login',
-  //       path: 'login',
-  //       component: () => import('@/pages/auth/login/Login.vue'),
-  //     },
-  //     {
-  //       name: 'signup',
-  //       path: 'signup',
-  //       component: () => import('@/pages/auth/signup/Signup.vue'),
-  //     },
-  //     {
-  //       name: 'recover-password',
-  //       path: 'recover-password',
-  //       component: () => import('@/pages/auth/recover-password/RecoverPassword.vue'),
-  //     },
-  //     {
-  //       path: '',
-  //       redirect: { name: 'login' },
-  //     },
-  //   ],
-  // },
+  {
+    path: '/auth',
+    component: AuthLayout,
+    children: [
+      {
+        name: 'login',
+        path: 'login',
+        component: () => import('@/pages/auth/login/Login.vue'),
+      },
+      {
+        name: 'signup',
+        path: 'signup',
+        component: () => import('@/pages/auth/signup/Signup.vue'),
+      },
+      {
+        name: 'recover-password',
+        path: 'recover-password',
+        component: () => import('@/pages/auth/recover-password/RecoverPassword.vue'),
+      },
+      {
+        path: '',
+        redirect: { name: 'login' },
+      },
+    ],
+  },
 ]
 
 export const router = createRouter({

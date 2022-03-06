@@ -1,8 +1,8 @@
 <template>
   <form @submit.prevent="onsubmit()">
     <va-input
-      class="mb-3"
       v-model="email"
+      class="mb-3"
       type="email"
       :label="$t('auth.email')"
       :error="!!emailErrors.length"
@@ -10,8 +10,8 @@
     />
 
     <va-input
-      class="mb-3"
       v-model="password"
+      class="mb-3"
       type="password"
       :label="$t('auth.password')"
       :error="!!passwordErrors.length"
@@ -23,7 +23,7 @@
         v-model="agreedToTerms"
         class="mb-0"
         :error="!!agreedToTermsErrors.length"
-        :errorMessages="agreedToTermsErrors"
+        :error-messages="agreedToTermsErrors"
       >
         <template #label>
           <span class="ml-1">
@@ -32,8 +32,8 @@
           </span>
         </template>
       </va-checkbox>
-      <router-link class="ml-1 link" :to="{name: 'recover-password'}">
-        {{$t('auth.recover_password')}}
+      <router-link class="ml-1 link" :to="{ name: 'recover-password' }">
+        {{ $t('auth.recover_password') }}
       </router-link>
     </div>
 
@@ -45,8 +45,8 @@
 
 <script>
 export default {
-  name: 'signup',
-  data () {
+  name: 'Signup',
+  data() {
     return {
       email: '',
       password: '',
@@ -56,24 +56,29 @@ export default {
       agreedToTermsErrors: [],
     }
   },
+  computed: {
+    formReady() {
+      return !(
+        this.emailErrors.length ||
+        this.passwordErrors.length ||
+        this.agreedToTermsErrors.length
+      )
+    },
+  },
   methods: {
-    onsubmit () {
+    onsubmit() {
       this.emailErrors = this.email ? [] : ['Email is required']
       this.passwordErrors = this.password ? [] : ['Password is required']
-      this.agreedToTermsErrors = this.agreedToTerms ? [] : ['You must agree to the terms of use to continue']
+      this.agreedToTermsErrors = this.agreedToTerms
+        ? []
+        : ['You must agree to the terms of use to continue']
       if (!this.formReady) {
         return
       }
-      this.$router.push({ name: 'dashboard' })
-    },
-  },
-  computed: {
-    formReady () {
-      return !(this.emailErrors.length || this.passwordErrors.length || this.agreedToTermsErrors.length)
+      this.$router.push({ name: 'login' })
     },
   },
 }
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
