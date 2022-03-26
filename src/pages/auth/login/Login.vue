@@ -1,9 +1,9 @@
 <template>
   <form @submit.prevent="onsubmit">
     <va-input
-      v-model="email"
+      v-model="id"
       class="mb-3"
-      type="email"
+      type="id"
       :label="'id'"
       :error="!!emailErrors.length"
       :error-messages="emailErrors"
@@ -32,11 +32,13 @@
 </template>
 
 <script>
+import axios from '../../../plugins/axios/axios.ts'
+
 export default {
   name: 'Login',
   data() {
     return {
-      email: '',
+      id: '',
       password: '',
       keepLoggedIn: false,
       emailErrors: [],
@@ -50,6 +52,11 @@ export default {
   },
   methods: {
     onsubmit() {
+      let data = {
+        userId: this.id,
+        userPw: this.password,
+      }
+      axios.put('/cms/signin', data)
       this.emailErrors = this.email ? [] : ['Id is required']
       this.passwordErrors = this.password ? [] : ['Password is required']
       if (!this.formReady) {
