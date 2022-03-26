@@ -4,7 +4,7 @@
       v-model="email"
       class="mb-3"
       type="email"
-      :label="$t('auth.email')"
+      :label="'id'"
       :error="!!emailErrors.length"
       :error-messages="emailErrors"
     />
@@ -13,7 +13,7 @@
       v-model="password"
       class="mb-3"
       type="password"
-      :label="$t('auth.password')"
+      :label="'password'"
       :error="!!passwordErrors.length"
       :error-messages="passwordErrors"
     />
@@ -26,7 +26,7 @@
     </div>
 
     <div class="d-flex justify--center mt-3">
-      <va-button class="my-0" @click="onsubmit">{{ $t('auth.login') }}</va-button>
+      <va-button class="my-0" @click="onsubmit">Login</va-button>
     </div>
   </form>
 </template>
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     onsubmit() {
-      this.emailErrors = this.email ? [] : ['Email is required']
+      this.emailErrors = this.email ? [] : ['Id is required']
       this.passwordErrors = this.password ? [] : ['Password is required']
       if (!this.formReady) {
         return

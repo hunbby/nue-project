@@ -4,7 +4,7 @@
       v-model="email"
       class="mb-3"
       type="email"
-      :label="$t('auth.email')"
+      :label="'id'"
       :error="!!emailErrors.length"
       :error-messages="emailErrors"
     />
@@ -13,7 +13,7 @@
       v-model="password"
       class="mb-3"
       type="password"
-      :label="$t('auth.password')"
+      :label="'password'"
       :error="!!passwordErrors.length"
       :error-messages="passwordErrors"
     />

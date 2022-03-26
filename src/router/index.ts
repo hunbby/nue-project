@@ -11,7 +11,7 @@ import RouteViewComponent from './route-view.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/:catchAll(.*)',
-    redirect: { name: 'markup' },
+    redirect: { name: 'login' },
   },
   {
     name: 'admin',
