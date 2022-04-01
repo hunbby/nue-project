@@ -8,6 +8,14 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   server: {
     port: 18080,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:18090',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
   resolve: {
     alias: {
@@ -16,7 +24,7 @@ export default defineConfig({
       // '~': path.resolve(__dirname, 'node_modules'),
       'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
     },
-    extensions: ['.js'],
+    extensions: ['.js', '.ts'],
   },
   plugins: [vue()],
 })
