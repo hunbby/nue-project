@@ -7,6 +7,7 @@
    `npm install`
 
    설치 안되는 항목 있을수 있음 강제 설치 필요
+   test
 
 2. run
 
