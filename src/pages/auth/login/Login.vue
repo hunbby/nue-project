@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import axios from '../../../plugins/axios/axios.ts'
+import axios from '../../../plugins/axios/axios'
 
 export default {
   name: 'Login',
@@ -56,7 +56,12 @@ export default {
         userId: this.id,
         userPw: this.password,
       }
-      axios.put('/cms/signin', data)
+      axios.post('/api/cms/signin', data).then((res) => {
+        console.log(res)
+      })
+      axios.get('/api/cms/hello', data).then((res) => {
+        console.log(res)
+      })
       this.emailErrors = this.email ? [] : ['Id is required']
       this.passwordErrors = this.password ? [] : ['Password is required']
       if (!this.formReady) {
