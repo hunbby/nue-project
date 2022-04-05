@@ -1,25 +1,29 @@
 <template>
   <form @submit.prevent="onsubmit">
     <va-input
-      v-model="id"
+      v-model="loginData.id"
       class="mb-3"
       type="id"
       :label="'id'"
-      :error="!!emailErrors.length"
-      :error-messages="emailErrors"
+      :error="!!loginData.emailErrors.length"
+      :error-messages="loginData.emailErrors"
     />
 
     <va-input
-      v-model="password"
+      v-model="loginData.password"
       class="mb-3"
       type="password"
       :label="'password'"
-      :error="!!passwordErrors.length"
-      :error-messages="passwordErrors"
+      :error="!!loginData.passwordErrors.length"
+      :error-messages="loginData.passwordErrors"
     />
 
     <div class="auth-layout__options d-flex align--center justify--space-between">
-      <va-checkbox v-model="keepLoggedIn" class="mb-0" :label="$t('auth.keep_logged_in')" />
+      <va-checkbox
+        v-model="loginData.keepLoggedIn"
+        class="mb-0"
+        :label="$t('auth.keep_logged_in')"
+      />
       <router-link class="ml-1 link" :to="{ name: 'recover-password' }">
         {{ $t('auth.recover_password') }}
       </router-link>
@@ -29,46 +33,52 @@
       <va-button class="my-0" @click="onsubmit">Login</va-button>
     </div>
   </form>
+  <div class="cards">
+    <div class="flex xs12">
+      <div class="cards-container row d-flex wrap align--start">
+        <va-card>
+          <va-card-title>데이터 확인용</va-card-title>
+          <va-card-content>{{ loginData }}</va-card-content>
+        </va-card>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script>
-import axios from '../../../plugins/axios/axios'
+<script lang="ts">
+import { computed, defineComponent, reactive } from 'vue'
 
-export default {
+import LoginData from './LoginInf'
+import loginSvc from './LoginSvc'
+
+// import axios from '../../../plugins/axios/axios'
+
+export default defineComponent({
   name: 'Login',
-  data() {
-    return {
+  setup() {
+    const loginData = reactive<LoginData>({
       id: '',
       password: '',
       keepLoggedIn: false,
       emailErrors: [],
       passwordErrors: [],
+    }) as LoginData
+
+    const { testfunction } = loginSvc()
+
+    const formReady = computed(() => {
+      return !loginData.emailErrors.length && !loginData.passwordErrors.length
+    })
+
+    const onsubmit = () => {
+      console.log('test')
+      testfunction(loginData)
+    }
+    return {
+      loginData,
+      formReady,
+      onsubmit,
     }
   },
-  computed: {
-    formReady() {
-      return !this.emailErrors.length && !this.passwordErrors.length
-    },
-  },
-  methods: {
-    onsubmit() {
-      let data = {
-        userId: this.id,
-        userPw: this.password,
-      }
-      axios.post('/api/cms/signin', data).then((res) => {
-        console.log(res)
-      })
-      axios.get('/api/cms/hello', data).then((res) => {
-        console.log(res)
-      })
-      this.emailErrors = this.email ? [] : ['Id is required']
-      this.passwordErrors = this.password ? [] : ['Password is required']
-      if (!this.formReady) {
-        return
-      }
-      this.$router.push({ name: 'markup' })
-    },
-  },
-}
+})
 </script>

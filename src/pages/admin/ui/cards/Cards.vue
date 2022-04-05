@@ -42,7 +42,7 @@
 
         <div class="flex xs12 sm6 lg4 xl3">
           <va-card>
-            <va-image src="https://picsum.photos/300/200/?image=1043" style="height: 200px;"/>
+            <va-image src="https://picsum.photos/300/200/?image=1043" style="height: 200px" />
             <va-card-title>{{ $t('cards.title.withImage') }}</va-card-title>
             <va-card-content>{{ $t('cards.contentText') }}</va-card-content>
           </va-card>
@@ -50,8 +50,10 @@
 
         <div class="flex xs12 sm6 lg4 xl3">
           <va-card>
-            <va-image src="https://picsum.photos/300/200/?image=898" style="height: 200px;">
-              <va-card-title text-color="#fff">{{ $t('cards.title.withTitleOnImage') }}</va-card-title>
+            <va-image src="https://picsum.photos/300/200/?image=898" style="height: 200px">
+              <va-card-title text-color="#fff">
+                {{ $t('cards.title.withTitleOnImage') }}
+              </va-card-title>
             </va-image>
             <va-card-content>{{ $t('cards.contentText') }}</va-card-content>
           </va-card>
@@ -59,7 +61,7 @@
 
         <div class="flex xs12 sm6 lg4 xl3">
           <va-card>
-            <va-image src="https://picsum.photos/300/200/?image=898" style="height: 200px;">
+            <va-image src="https://picsum.photos/300/200/?image=898" style="height: 200px">
               <va-button class="ma-0">
                 {{ $t('cards.button.readMore') }}
               </va-button>
@@ -68,36 +70,26 @@
         </div>
 
         <div class="flex xs12 sm6 lg4 xl3">
-          <va-card
-            stripe
-            stripe-color="danger"
-          >
+          <va-card stripe stripe-color="danger">
             <va-card-title>{{ $t('cards.title.withStripe') }}</va-card-title>
             <va-card-content>{{ $t('cards.contentTextLong') }}</va-card-content>
           </va-card>
         </div>
 
         <div class="flex xs12 sm6 lg4 xl3">
-          <va-card
-            color="success"
-          >
+          <va-card color="success">
             <va-card-content>{{ $t('cards.contentTextLong') }}</va-card-content>
           </va-card>
         </div>
 
         <div class="flex xs12 sm6 lg4 xl3">
-          <va-card
-            color="danger"
-          >
+          <va-card color="danger">
             <va-card-content>{{ $t('cards.contentTextLong') }}</va-card-content>
           </va-card>
         </div>
 
         <div class="flex xs12 sm6 lg4 xl3">
-          <va-card
-            stripe
-            stripe-color="info"
-          >
+          <va-card stripe stripe-color="info">
             <va-card-title>{{ $t('cards.title.withStripe') }}</va-card-title>
             <va-card-content>{{ $t('cards.contentTextLong') }}</va-card-content>
           </va-card>
@@ -105,8 +97,10 @@
 
         <div class="flex xs12 sm6 lg4 xl3">
           <va-card>
-            <va-image src="https://picsum.photos/300/200/?image=1067" style="height: 200px;">
-              <va-card-title text-color="#fff">{{ $t('cards.title.withTitleOnImage') }}</va-card-title>
+            <va-image src="https://picsum.photos/300/200/?image=1067" style="height: 200px">
+              <va-card-title text-color="#fff">
+                {{ $t('cards.title.withTitleOnImage') }}
+              </va-card-title>
             </va-image>
             <va-card-content>{{ $t('cards.contentText') }}</va-card-content>
           </va-card>
@@ -114,7 +108,7 @@
       </template>
     </div>
 
-    <va-inner-loading class="flex-center py-3" style="width: 100%;" :loading="isLoading">
+    <va-inner-loading class="flex-center py-3" style="width: 100%" :loading="isLoading">
       <va-button @click="addCards()">
         {{ $t('cards.button.showMore') }}
       </va-button>
@@ -125,7 +119,7 @@
 <script>
 export default {
   name: 'cards',
-  data () {
+  data() {
     return {
       listLoops: 1,
       counter: 1,
@@ -133,7 +127,7 @@ export default {
     }
   },
   methods: {
-    addCards () {
+    addCards() {
       this.isLoading = true
       setTimeout(() => {
         this.isLoading = false

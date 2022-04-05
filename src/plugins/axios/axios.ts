@@ -6,11 +6,12 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
 axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    console.log('request interceptor!!!!', config)
+    console.log('request interceptor', config)
     return config
   },
   function (error) {
     // Do something with request error
+    console.log('reauest interceptor ERROR', error)
     return Promise.reject(error)
   }
 )
@@ -21,12 +22,13 @@ axios.interceptors.response.use(
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     response.headers['Access-Control-Allow-Origin'] = '*'
-    console.log('response interceptor!!!!')
+    console.log('response interceptor')
     return response
   },
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    console.log('response interceptor ERROR', error)
     return Promise.reject(error)
   }
 )
