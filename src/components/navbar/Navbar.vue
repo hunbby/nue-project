@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { computed } from 'vue'
 import { useColors } from 'vuestic-ui'
 import { useStore } from 'vuex'

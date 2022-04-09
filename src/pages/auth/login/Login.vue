@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="onsubmit">
     <va-input
-      v-model="loginData.id"
+      v-model="loginData.userId"
       class="mb-3"
       type="id"
       :label="'id'"
@@ -10,7 +10,7 @@
     />
 
     <va-input
-      v-model="loginData.password"
+      v-model="loginData.userPw"
       class="mb-3"
       type="password"
       :label="'password'"
@@ -48,23 +48,18 @@
 <script lang="ts">
 import { computed, defineComponent, reactive } from 'vue'
 
-import LoginData from './LoginInf'
-import loginSvc from './LoginSvc'
-
-// import axios from '../../../plugins/axios/axios'
+import { login, LoginForm } from './loginService/LoginService'
 
 export default defineComponent({
   name: 'Login',
   setup() {
-    const loginData = reactive<LoginData>({
-      id: '',
-      password: '',
+    const loginData = reactive<LoginForm>({
+      userId: '',
+      userPw: '',
       keepLoggedIn: false,
       emailErrors: [],
       passwordErrors: [],
-    }) as LoginData
-
-    const { testfunction } = loginSvc()
+    }) as LoginForm
 
     const formReady = computed(() => {
       return !loginData.emailErrors.length && !loginData.passwordErrors.length
@@ -72,7 +67,7 @@ export default defineComponent({
 
     const onsubmit = () => {
       console.log('test')
-      testfunction(loginData)
+      login(loginData)
     }
     return {
       loginData,
