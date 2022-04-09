@@ -48,7 +48,7 @@
 <script lang="ts">
 import { computed, defineComponent, reactive } from 'vue'
 
-import { login, LoginForm } from './loginService/LoginService'
+import { login, LoginForm } from '@/services/auth/auth-service'
 
 export default defineComponent({
   name: 'Login',

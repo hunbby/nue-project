@@ -11,7 +11,14 @@ export interface LoginForm {
 export async function login(params: LoginForm) {
   const result1 = await axios.post('/api/cms/signin', params).then((res) => {
     console.log('login result : ', res)
-    return res
+    return res.data
   })
-  return result1
+  if (result1.resltCd == '0000') {
+    localStorage.setItem('user', JSON.stringify(result1.data))
+  } else {
+    alert('로그인 에러 발생 로그 확인 필요')
+    console.log(result1)
+    return false
+  }
+  console.log('localStorage 확인', localStorage)
 }
