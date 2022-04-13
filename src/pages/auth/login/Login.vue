@@ -48,7 +48,15 @@
 <script lang="ts">
 import { computed, defineComponent, reactive } from 'vue'
 
-import { login, LoginForm } from '@/services/auth/auth-service'
+import AuthService from '@/services/auth/auth-service'
+
+export interface LoginForm {
+  userId: string
+  userPw: string
+  keepLoggedIn: boolean
+  emailErrors: []
+  passwordErrors: []
+}
 
 export default defineComponent({
   name: 'Login',
@@ -67,7 +75,7 @@ export default defineComponent({
 
     const onsubmit = () => {
       console.log('test')
-      login(loginData)
+      AuthService.login(loginData)
     }
     return {
       loginData,
