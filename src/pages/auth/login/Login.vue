@@ -47,6 +47,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive } from 'vue'
+import { useStore } from 'vuex'
 
 import AuthService from '@/services/auth/auth-service'
 
@@ -61,6 +62,8 @@ export interface LoginForm {
 export default defineComponent({
   name: 'Login',
   setup() {
+    const store = useStore()
+
     const loginData = reactive<LoginForm>({
       userId: '',
       userPw: '',
@@ -70,7 +73,16 @@ export default defineComponent({
     }) as LoginForm
 
     const formReady = computed(() => {
+      console.log(
+        'formReady 값 : ',
+        !loginData.emailErrors.length && !loginData.passwordErrors.length
+      )
       return !loginData.emailErrors.length && !loginData.passwordErrors.length
+    })
+
+    const loggedIn = computed(() => {
+      console.log('authModule state 값 : ', store.state.authModule.status.loggedIn)
+      return store.state.authModule.status.loggedIn
     })
 
     const onsubmit = () => {
@@ -80,6 +92,7 @@ export default defineComponent({
     return {
       loginData,
       formReady,
+      loggedIn,
       onsubmit,
     }
   },

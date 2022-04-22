@@ -13,7 +13,7 @@ import es from './i18n/es.json'
 import ir from './i18n/ir.json'
 import router from './router'
 import vuesticGlobalConfig from './services/vuestic-ui/global-config'
-import store from './store'
+import { store } from './store'
 
 const i18nConfig = {
   locale: 'en',

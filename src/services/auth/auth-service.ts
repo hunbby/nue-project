@@ -22,6 +22,7 @@ class AuthService {
 
   async register(_user: User) {
     console.log(_user)
+    return _user
   }
 }
 
