@@ -55,8 +55,8 @@ export interface LoginForm {
   userId: string
   userPw: string
   keepLoggedIn: boolean
-  emailErrors: []
-  passwordErrors: []
+  emailErrors: string[]
+  passwordErrors: string[]
 }
 
 export default defineComponent({
@@ -73,10 +73,6 @@ export default defineComponent({
     }) as LoginForm
 
     const formReady = computed(() => {
-      console.log(
-        'formReady 값 : ',
-        !loginData.emailErrors.length && !loginData.passwordErrors.length
-      )
       return !loginData.emailErrors.length && !loginData.passwordErrors.length
     })
 
@@ -86,14 +82,33 @@ export default defineComponent({
     })
 
     const onsubmit = () => {
-      console.log('test')
+      if (loginData.userId.length == 0) {
+        let text = 'Id를 입력하세요'
+        loginData.emailErrors.push(text)
+      }
+      if (loginData.userPw.length == 0) {
+        let text = 'Pw를 입력하세요'
+        loginData.passwordErrors.push(text)
+      }
+      if (!formReady.value) {
+        return
+      }
       AuthService.login(loginData)
     }
+
     return {
       loginData,
       formReady,
       loggedIn,
       onsubmit,
+    }
+  },
+  created() {
+    // 컴포넌트가 생성될 떄 실행
+    console.log('date 접근 ', this.loggedIn)
+    // 로그인 되어있는데 로그아웃을 하지 않고 로그인 화면으로 넘어가려고 했을 경우 이동
+    if (this.loggedIn) {
+      this.$router.push({ name: 'markup' })
     }
   },
 })

@@ -19,6 +19,4 @@ declare interface LoginForm {
   userId: string
   userPw: string
   keepLoggedIn: boolean
-  emailErrors: []
-  passwordErrors: []
 }
