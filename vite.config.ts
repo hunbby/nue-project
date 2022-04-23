@@ -9,7 +9,7 @@ export default defineConfig({
   server: {
     port: 18080,
     proxy: {
-      '/api': {
+      '^/api/.*': {
         target: 'http://hungu.synology.me:18090',
         changeOrigin: true,
         secure: false,
