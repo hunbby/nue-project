@@ -17,7 +17,7 @@ class AuthService {
   }
 
   async logout() {
-    localStorage.removeItem('remove')
+    localStorage.removeItem('user')
   }
 
   async register(_user: User) {

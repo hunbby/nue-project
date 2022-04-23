@@ -47,9 +47,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-
-import AuthService from '@/services/auth/auth-service'
 
 export interface LoginForm {
   userId: string
@@ -63,6 +62,7 @@ export default defineComponent({
   name: 'Login',
   setup() {
     const store = useStore()
+    const router = useRouter()
 
     const loginData = reactive<LoginForm>({
       userId: '',
@@ -93,7 +93,16 @@ export default defineComponent({
       if (!formReady.value) {
         return
       }
-      AuthService.login(loginData)
+      // AuthService.login(loginData)
+      store.dispatch('authModule/login', loginData).then(
+        () => {
+          console.log('auth 모듈 로그인 호출 되었습니다.')
+          router.push({ name: 'markup' })
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
     }
 
     return {
