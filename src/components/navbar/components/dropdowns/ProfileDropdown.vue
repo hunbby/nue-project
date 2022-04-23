@@ -1,32 +1,27 @@
 <template>
   <va-dropdown
-    class="profile-dropdown"
     v-model="isShown"
+    class="profile-dropdown"
     boundary-body
     position="bottom"
     :offset="[0, 13]"
   >
     <template #anchor>
       <span class="profile-dropdown__anchor">
-        <slot/>
-        <va-icon
-          class="px-2"
-          :name="isShown ? 'angle_up' :'angle_down'"
-          :color="theme.primary"
-        />
+        <slot />
+        <va-icon class="px-2" :name="isShown ? 'angle_up' : 'angle_down'" :color="theme.primary" />
       </span>
     </template>
     <va-dropdown-content class="profile-dropdown__content">
-      <va-list-item
-        v-for="option in options"
-        :key="option.name"
-      >
-        <router-link
-          :to="{name: option.redirectTo}"
-          class="profile-dropdown__item"
-        >
+      <va-list-item v-for="option in options" :key="option.name">
+        <router-link :to="{ name: option.redirectTo }" class="profile-dropdown__item">
           {{ $t(`user.${option.name}`) }}
-        </router-link>          
+        </router-link>
+      </va-list-item>
+      <va-list-item>
+        <router-link :to="{ name: 'login' }" class="profile-dropdown__item" @click="logout">
+          LogOut
+        </router-link>
       </va-list-item>
     </va-dropdown-content>
   </va-dropdown>
@@ -36,12 +31,7 @@
 import { useGlobalConfig } from 'vuestic-ui'
 
 export default {
-  name: 'profile-section',
-  data () {
-    return {
-      isShown: false,
-    }
-  },
+  name: 'ProfileSection',
   props: {
     options: {
       type: Array,
@@ -50,21 +40,29 @@ export default {
           name: 'profile',
           redirectTo: '',
         },
-        {
-          name: 'logout',
-          redirectTo: 'login',
-        },
       ],
     },
   },
+  data() {
+    return {
+      isShown: false,
+    }
+  },
   computed: {
-    theme() { return useGlobalConfig().getGlobalConfig() },
-  }
+    theme() {
+      return useGlobalConfig().getGlobalConfig()
+    },
+  },
+  methods: {
+    logout() {
+      console.log('로그아웃 실행')
+      this.$store.dispatch('authModule/logout')
+    },
+  },
 }
 </script>
 
 <style lang="scss">
-
 .profile-dropdown {
   cursor: pointer;
 
