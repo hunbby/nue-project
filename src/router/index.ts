@@ -4,6 +4,7 @@ import { store } from '@/store/index'
 
 import AppLayout from '../layout/app-layout.vue'
 import AuthLayout from '../layout/auth-layout.vue'
+import page404Layout from '../layout/page-404-layout.vue'
 import Dashboard from '../pages/admin/dashboard/Dashboard.vue'
 import DataTables from '../pages/admin/tables/data-tables/DataTables.vue'
 import MarkupTables from '../pages/admin/tables/markup-tables/MarkupTables.vue'
@@ -142,23 +143,23 @@ const routes: Array<RouteRecordRaw> = [
         //   },
         // ],
       },
-      {
-        name: 'pages',
-        path: 'pages',
-        component: RouteViewComponent,
-        children: [
-          {
-            name: '404-pages',
-            path: '404-pages',
-            component: () => import('@/pages/admin/pages/404PagesPage.vue'),
-          },
-          {
-            name: 'faq',
-            path: 'faq',
-            component: () => import('@/pages/admin/pages/FaqPage.vue'),
-          },
-        ],
-      },
+      // {
+      //   name: 'pages',
+      //   path: 'pages',
+      //   component: RouteViewComponent,
+      //   children: [
+      //     {
+      //       name: '404-pages',
+      //       path: '404-pages',
+      //       component: () => import('@/pages/admin/pages/404PagesPage.vue'),
+      //     },
+      //     {
+      //       name: 'faq',
+      //       path: 'faq',
+      //       component: () => import('@/pages/admin/pages/FaqPage.vue'),
+      //     },
+      //   ],
+      // },
       UIRoute,
     ],
   },
@@ -184,6 +185,23 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '',
         redirect: { name: 'login' },
+      },
+    ],
+  },
+  {
+    name: 'pages',
+    path: '/pages',
+    component: AppLayout,
+    children: [
+      {
+        name: '404-pages',
+        path: '404-pages',
+        component: () => import('@/pages/admin/pages/404PagesPage.vue'),
+      },
+      {
+        name: 'faq',
+        path: 'faq',
+        component: () => import('@/pages/admin/pages/FaqPage.vue'),
       },
     ],
   },
