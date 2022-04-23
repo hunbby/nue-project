@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
+import { store } from '@/store/index'
+
 import AppLayout from '../layout/app-layout.vue'
 import AuthLayout from '../layout/auth-layout.vue'
 import Dashboard from '../pages/admin/dashboard/Dashboard.vue'
@@ -192,15 +194,23 @@ export const router = createRouter({
   routes,
 })
 
-// router.beforeEach((to, _form, next) => {
-//   const publicPages = ['/login', '/signup', '/home']
-//   const authRequired = !publicPages.includes(to.path)
-//   const loggedIn = localStorage.getItem('user')
-//   if (authRequired && !loggedIn) {
-//     next('/login')
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, _form, next) => {
+  store.dispatch('authModule/tokenCheck').then(
+    () => {
+      console.log('router 토큰 체크 성공')
+      const publicPages = ['/auth/login', '/auth/signup']
+      const authRequired = !publicPages.includes(to.path)
+      const loggedIncheck = store.getters['authModule/logginInChekc']
+      if (authRequired && !loggedIncheck) {
+        next('/login')
+      } else {
+        next()
+      }
+    },
+    (error) => {
+      console.log('router 토큰 체크 실패', error)
+    }
+  )
+})
 
 export default router

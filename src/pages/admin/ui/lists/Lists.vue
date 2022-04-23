@@ -12,7 +12,7 @@
               <va-list-item clickable @click="notify(customer.name)">
                 <va-list-item-section class="ml-2" avatar>
                   <va-avatar>
-                    <img :src="customer.picture" :alt="customer.name">
+                    <img :src="customer.picture" :alt="customer.name" />
                   </va-avatar>
                 </va-list-item-section>
 
@@ -50,7 +50,7 @@
 
                 <va-list-item-section avatar>
                   <va-avatar>
-                    <img :src="customer.picture" :alt="customer.name">
+                    <img :src="customer.picture" :alt="customer.name" />
                   </va-avatar>
                 </va-list-item-section>
 
@@ -85,7 +85,7 @@
 
                 <va-list-item-section avatar>
                   <va-avatar>
-                    <img :src="customer.picture" :alt="customer.name">
+                    <img :src="customer.picture" :alt="customer.name" />
                   </va-avatar>
                 </va-list-item-section>
 
@@ -98,7 +98,7 @@
 
               <va-list-separator v-if="i < archived.length - 1" :key="'separator' + customer.id" />
             </template>
-          </va-list>         
+          </va-list>
         </va-card>
       </div>
 
@@ -111,21 +111,15 @@
 
             <va-list-item class="ml-2" clickable>
               <va-list-item-section>
-                <va-list-item-label>
-                  Add profile images
-                </va-list-item-label>
+                <va-list-item-label>Add profile images</va-list-item-label>
 
-                <va-list-item-label caption>
-                  You can use PNG or JPG files.
-                </va-list-item-label>
+                <va-list-item-label caption>You can use PNG or JPG files.</va-list-item-label>
               </va-list-item-section>
             </va-list-item>
 
             <va-list-item class="ml-2" clickable>
               <va-list-item-section>
-                <va-list-item-label>
-                  Invite friends
-                </va-list-item-label>
+                <va-list-item-label>Invite friends</va-list-item-label>
 
                 <va-list-item-label caption>
                   You can send invitations via email or any messenger.
@@ -143,9 +137,7 @@
               <va-checkbox class="mr-2" v-model="appBanners" />
 
               <va-list-item-section>
-                <va-list-item-label>
-                  Application Banners
-                </va-list-item-label>
+                <va-list-item-label>Application Banners</va-list-item-label>
 
                 <va-list-item-label caption>
                   You can send invitations via email or any messenger.
@@ -157,9 +149,7 @@
               <va-checkbox class="mr-2" v-model="banners" />
 
               <va-list-item-section>
-                <va-list-item-label>
-                  Banners
-                </va-list-item-label>
+                <va-list-item-label>Banners</va-list-item-label>
 
                 <va-list-item-label caption>
                   You can send invitations via email or any messenger.
@@ -171,12 +161,10 @@
               <va-checkbox class="mr-2" v-model="notifications" />
 
               <va-list-item-section>
-                <va-list-item-label>
-                  Midnight Notifications
-                </va-list-item-label>
+                <va-list-item-label>Midnight Notifications</va-list-item-label>
               </va-list-item-section>
             </va-list-item>
-          </va-list>          
+          </va-list>
         </va-card>
 
         <va-card>
@@ -214,7 +202,7 @@
                 <va-list-item-label>Leaflet Maps</va-list-item-label>
               </va-list-item-section>
             </va-list-item>
-          </va-list>          
+          </va-list>
         </va-card>
       </div>
     </div>
@@ -225,7 +213,7 @@
 import data from './data.json'
 
 export default {
-  data () {
+  data() {
     return {
       customers: data.slice(0, 5),
       archived: data.slice(5, 8),
@@ -235,20 +223,19 @@ export default {
     }
   },
   methods: {
-    getGenderIcon (gender) {
+    getGenderIcon(gender) {
       return gender === 'male' ? 'mars' : 'venus'
     },
-    getGenderColor (gender) {
+    getGenderColor(gender) {
       return gender === 'male' ? 'blue' : 'pink'
     },
-    notify (name) {
-      this.$vaToast.init(
-      {
+    notify(name) {
+      this.$vaToast.init({
         message: `Clicked ${name}`,
         position: 'bottom-right',
       })
     },
-    toggleStar (customer) {
+    toggleStar(customer) {
       customer.starred = !customer.starred
     },
   },

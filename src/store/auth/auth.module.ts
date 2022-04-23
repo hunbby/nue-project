@@ -66,6 +66,9 @@ export const authModule: Module<AuthModuleState, RootState> = {
     refreshToken({ commit }, accessToken) {
       commit('refreshToken', accessToken)
     },
+    tokenCheck({ commit }) {
+      commit('tokenCheck')
+    },
   },
   mutations: {
     loginSuccess(state, user) {
@@ -92,6 +95,20 @@ export const authModule: Module<AuthModuleState, RootState> = {
         state.user = { ...state.user, accessToken: accessToken }
       }
     },
+    tokenCheck(state) {
+      let result = null
+      const user = localStorage.getItem('user')
+      if (user !== null) {
+        result = JSON.parse(user).accessToken
+      }
+      if (result) {
+        state.status.loggedIn = true
+      }
+    },
   },
-  getters: {},
+  getters: {
+    logginInChekc: (state) => {
+      return state.status.loggedIn
+    },
+  },
 }
