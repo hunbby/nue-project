@@ -1,6 +1,7 @@
 {
   "name": "template-test2-vite2",
   "version": "0.0.0",
+  "proxy" : "http://hungu.synology.me:18090",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
