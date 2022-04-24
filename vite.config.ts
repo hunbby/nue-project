@@ -12,6 +12,8 @@ export default defineConfig({
       '^/api/.*': {
         target: 'http://hungu.synology.me:18090',
         changeOrigin: true,
+        secure: false,
+        ws: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
