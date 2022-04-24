@@ -4,7 +4,7 @@ import { useStore } from 'vuex'
 import TokenService from '@/services/token/token-service'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
-// axios.defaults.baseURL = 'http://localhost:18090'
+axios.defaults.baseURL = 'http://hungu.synology.me:18090'
 
 const store = useStore()
 
