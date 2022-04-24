@@ -4,6 +4,7 @@ import { useStore } from 'vuex'
 import TokenService from '@/services/token/token-service'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
+// axios.defaults.baseURL = 'http://localhost:18090'
 
 const store = useStore()
 
@@ -16,6 +17,7 @@ axios.interceptors.request.use(
     if (!config.headers) {
       config.headers = {}
     }
+    config.headers['Access-Control-Allow-Origin'] = '*'
     config.headers['accessToken'] = token
     return config
   },
