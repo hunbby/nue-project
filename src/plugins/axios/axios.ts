@@ -3,7 +3,7 @@ import { useStore } from 'vuex'
 
 import TokenService from '@/services/token/token-service'
 
-axios.defaults.baseURL = 'http://localhost:18090'
+axios.defaults.baseURL = 'http://hungu.synology.me:18090'
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,OPTIONS'
