@@ -3,12 +3,9 @@ import { useStore } from 'vuex'
 
 import TokenService from '@/services/token/token-service'
 
+axios.defaults.baseURL = 'http://localhost:18090/cms'
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
-axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,OPTIONS'
-axios.defaults.headers.post[
-  'Authorization, Content-Length, X-Requested-With, accessToken, refreshToken'
-]
 
 const store = useStore()
 
@@ -46,7 +43,7 @@ axios.interceptors.response.use(
 
     const originalConfig = error.config
 
-    if (originalConfig.url !== '/api/cms/signin' && originalConfig._retry) {
+    if (originalConfig.url !== '/signin' && originalConfig._retry) {
       originalConfig._retry = true
 
       try {

@@ -8,15 +8,15 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   server: {
     port: 18080,
-    proxy: {
-      '^/api/.*': {
-        target: 'http://localhost:18090',
-        changeOrigin: true,
-        secure: false,
-        ws: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
+    // proxy: {
+    //   '^/api/.*': {
+    //     target: 'http://localhost:18090',
+    //     changeOrigin: true,
+    //     secure: false,
+    //     ws: true,
+    //     rewrite: (path) => path.replace(/^\/api/, ''),
+    //   },
+    // },
   },
   resolve: {
     alias: {

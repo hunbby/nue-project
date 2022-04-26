@@ -2,7 +2,7 @@ import axios from '@/plugins/axios/axios'
 
 class AuthService {
   async login(_user: LoginForm) {
-    const result1 = await axios.post('/api/cms/signin', _user).then((res) => {
+    const result1 = await axios.post('/signin', _user).then((res) => {
       console.log('login result : ', res)
       return res.data
     })
