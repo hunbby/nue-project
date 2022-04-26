@@ -4,6 +4,11 @@ import { useStore } from 'vuex'
 import TokenService from '@/services/token/token-service'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
+axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,OPTIONS'
+axios.defaults.headers.post[
+  'Authorization, Content-Length, X-Requested-With, accessToken, refreshToken'
+]
 
 const store = useStore()
 
@@ -16,7 +21,6 @@ axios.interceptors.request.use(
     if (!config.headers) {
       config.headers = {}
     }
-    config.headers['Access-Control-Allow-Origin'] = '*'
     config.headers['accessToken'] = token
     return config
   },
@@ -32,7 +36,6 @@ axios.interceptors.response.use(
   (response) => {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    response.headers['Access-Control-Allow-Origin'] = '*'
     console.log('response interceptor')
     return response
   },
