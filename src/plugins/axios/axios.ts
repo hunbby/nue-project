@@ -6,6 +6,7 @@ import TokenService from '@/services/token/token-service'
 axios.defaults.baseURL = 'http://hungu.synology.me:18090/cms'
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
+axios.defaults.withCredentials = true
 
 const store = useStore()
 
