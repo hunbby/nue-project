@@ -2,18 +2,20 @@ import axios from '@/plugins/axios/axios'
 
 class AuthService {
   async login(_user: LoginForm) {
-    const result1 = await axios.post('/signin', _user).then((res) => {
-      console.log('login result : ', res)
-      return res.data
-    })
+    const result1 = await axios
+      .post('/signin', _user)
+      .then((res) => {
+        console.log('login result : ', res)
+        return res.data
+      })
+      .catch((error) => {
+        alert(error)
+      })
     if (result1.resltCd == '0000') {
       localStorage.setItem('user', JSON.stringify(result1.data))
-    } else {
-      alert('로그인 에러 발생 로그 확인 필요')
-      console.log(result1)
-      return false
+      console.log('localStorage 확인', localStorage)
     }
-    console.log('localStorage 확인', localStorage)
+    return result1
   }
 
   async logout() {
@@ -21,8 +23,16 @@ class AuthService {
   }
 
   async register(_user: User) {
-    console.log(_user)
-    return _user
+    const result = await axios
+      .post('/signup', _user)
+      .then((res) => {
+        console.log('signUp result', res)
+        return res.data
+      })
+      .catch((error) => {
+        alert(error)
+      })
+    return result
   }
 }
 

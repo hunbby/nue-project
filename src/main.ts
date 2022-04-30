@@ -1,8 +1,9 @@
 import 'vuestic-ui/dist/vuestic-ui.css'
 import 'jquery'
 
-import cors from 'cors'
 import { createApp } from 'vue'
+// import cors from 'cors'
+import { VueCookieNext } from 'vue-cookie-next'
 import { createI18n } from 'vue-i18n'
 import { VuesticPlugin } from 'vuestic-ui'
 
@@ -30,7 +31,8 @@ const i18nConfig = {
 
 const app = createApp(App)
 
-app.use(cors)
+// app.use(cors)
+app.use(VueCookieNext)
 app.use(store)
 app.use(router)
 app.use(createI18n(i18nConfig))

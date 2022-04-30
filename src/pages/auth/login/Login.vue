@@ -19,11 +19,7 @@
     />
 
     <div class="auth-layout__options d-flex align--center justify--space-between">
-      <va-checkbox
-        v-model="loginData.keepLoggedIn"
-        class="mb-0"
-        :label="$t('auth.keep_logged_in')"
-      />
+      <va-checkbox v-model="loginData.keepLoggedIn" class="mb-0" :label="'Remember ID'" />
       <router-link class="ml-1 link" :to="{ name: 'recover-password' }">
         {{ $t('auth.recover_password') }}
       </router-link>
@@ -33,7 +29,7 @@
       <va-button class="my-0" @click="onsubmit">Login</va-button>
     </div>
   </form>
-  <div class="cards">
+  <!-- <div class="cards">
     <div class="flex xs12">
       <div class="cards-container row d-flex wrap align--start">
         <va-card>
@@ -42,11 +38,12 @@
         </va-card>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, reactive } from 'vue'
+import { useCookie } from 'vue-cookie-next'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -61,8 +58,10 @@ export interface LoginForm {
 export default defineComponent({
   name: 'Login',
   setup() {
+    const cookie = useCookie()
     const store = useStore()
     const router = useRouter()
+    console.log('cookie 데이터', cookie.keys())
 
     const loginData = reactive<LoginForm>({
       userId: '',
@@ -82,6 +81,9 @@ export default defineComponent({
     })
 
     const onsubmit = () => {
+      // 에러 메세지 초기화
+      loginData.emailErrors = []
+      loginData.passwordErrors = []
       if (loginData.userId.length == 0) {
         let text = 'Id를 입력하세요'
         loginData.emailErrors.push(text)
@@ -95,12 +97,17 @@ export default defineComponent({
       }
       // AuthService.login(loginData)
       store.dispatch('authModule/login', loginData).then(
-        () => {
-          console.log('auth 모듈 로그인 호출 되었습니다.')
-          router.push({ name: 'markup' })
+        (res) => {
+          if (res.resltCd == '0000') {
+            console.log('auth 모듈 로그인 호출 되었습니다.')
+            router.push({ name: 'markup' })
+          } else {
+            alert(res.data.msg)
+          }
         },
         (error) => {
           console.log(error)
+          return false
         }
       )
     }
@@ -114,8 +121,14 @@ export default defineComponent({
   },
   created() {
     // 컴포넌트가 생성될 떄 실행
-    console.log(import.meta.env.VITE_APP_BASE_API)
     console.log('date 접근 ', this.loggedIn)
+    // Remember ID 체크
+    console.log('cookie 데이터', this.$cookie.keys())
+    let remember_me = this.$cookie.getCookie('remember_me')
+    if (remember_me != null) {
+      this.loginData.userId = remember_me
+      this.loginData.keepLoggedIn = true
+    }
     // 로그인 되어있는데 로그아웃을 하지 않고 로그인 화면으로 넘어가려고 했을 경우 이동
     if (this.loggedIn) {
       this.$router.push({ name: 'markup' })

@@ -52,7 +52,7 @@ axios.interceptors.response.use(
           accessToken: TokenService.getLocalAccessToken(),
           refreshToken: TokenService.getLocalRefreshToken(),
         })
-
+        console.log('interceptor 리프레시 토큰 체크 결과', rs)
         const { accessToken } = rs.data
         store.dispatch('authModule/refreshToken', accessToken)
         TokenService.updateLocalAccessToken(accessToken)
