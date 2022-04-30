@@ -114,6 +114,7 @@ export default defineComponent({
   },
   created() {
     // 컴포넌트가 생성될 떄 실행
+    console.log(import.meta.env.VITE_APP_BASE_API)
     console.log('date 접근 ', this.loggedIn)
     // 로그인 되어있는데 로그아웃을 하지 않고 로그인 화면으로 넘어가려고 했을 경우 이동
     if (this.loggedIn) {

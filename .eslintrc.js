@@ -36,5 +36,5 @@ module.exports = {
       },
     ],
   },
-  plugins: ['simple-import-sort'],
+  plugins: ['@typescript-eslint', 'simple-import-sort'],
 }
