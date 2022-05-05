@@ -1,7 +1,7 @@
 <template>
   <component
     ref="chart"
-    class='va-chart'
+    class="va-chart"
     :is="chartComponent"
     :chartOptions="options"
     :chart-data="data"
@@ -23,7 +23,7 @@ export default {
     data: {},
     options: {},
     type: {
-      validator (type) {
+      validator(type) {
         return type in chartTypesMap
       },
     },
@@ -37,7 +37,7 @@ export default {
     BubbleChart,
   },
   computed: {
-    chartComponent () {
+    chartComponent() {
       return chartTypesMap[this.type]
     },
   },
@@ -45,11 +45,11 @@ export default {
     refresh() {
       this.$refs.chart.refresh()
     },
-  }
+  },
 }
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .va-chart {
   width: 100%;
   height: 100%;

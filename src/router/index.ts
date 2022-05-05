@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
+import BoardIndex from '@/pages/admin/board/BoardIndex.vue'
 import { store } from '@/store/index'
 
 import AppLayout from '../layout/app-layout.vue'
 import AuthLayout from '../layout/auth-layout.vue'
-import page404Layout from '../layout/page-404-layout.vue'
-import Dashboard from '../pages/admin/dashboard/Dashboard.vue'
-import DataTables from '../pages/admin/tables/data-tables/DataTables.vue'
+// import page404Layout from '../layout/page-404-layout.vue'
+// import Dashboard from '../pages/admin/dashboard/Dashboard.vue'
+// import DataTables from '../pages/admin/tables/data-tables/DataTables.vue'
 import MarkupTables from '../pages/admin/tables/markup-tables/MarkupTables.vue'
 import UIRoute from '../pages/admin/ui/route'
-import RouteViewComponent from './route-view.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -119,6 +119,11 @@ const routes: Array<RouteRecordRaw> = [
       //     },
       //   ],
       // },
+      {
+        name: 'board',
+        path: 'board',
+        component: BoardIndex,
+      },
       {
         name: 'markup',
         path: 'markup',

@@ -9,7 +9,7 @@
             :color="colors.primary"
             @click="isSidebarMinimized = !isSidebarMinimized"
           />
-          <router-link :to="{ name: 'markup' }">
+          <router-link :to="{ name: 'board' }">
             <vuestic-logo class="logo" />
           </router-link>
         </div>

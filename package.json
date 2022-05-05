@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "cross-env vite --mode development",
+    "serve": "cross-env vite --mode production",
     "pro": "cross-env vite --mode production",
     "build": "cross-env vite --mode production build",
     "preview": "vite preview",

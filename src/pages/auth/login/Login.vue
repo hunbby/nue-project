@@ -100,7 +100,7 @@ export default defineComponent({
         (res) => {
           if (res.resltCd == '0000') {
             console.log('auth 모듈 로그인 호출 되었습니다.')
-            router.push({ name: 'markup' })
+            router.push({ name: 'board' })
           } else {
             alert(res.data.msg)
           }
