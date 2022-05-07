@@ -4,7 +4,7 @@
       <va-card-content>
         <BoardList />
         <div class="row justify--end paginationButtons-right">
-          <va-button class="mr-2 mb-2">게시글 추가</va-button>
+          <va-button class="mr-2 mb-2" @click="openWritePage">게시글 추가</va-button>
         </div>
       </va-card-content>
     </va-card>
@@ -13,6 +13,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 
 import data from '@/data/tables/markup-table/data.json'
 
@@ -22,6 +23,7 @@ export default defineComponent({
   name: 'Board',
   components: { BoardList },
   setup() {
+    const router = useRouter()
     const users = data.slice(0, 8)
 
     const getStatusColor = (status: string) => {
@@ -36,9 +38,14 @@ export default defineComponent({
       return 'danger'
     }
 
+    const openWritePage = () => {
+      router.push({ name: 'boardWrite' })
+    }
+
     return {
       users,
       getStatusColor,
+      openWritePage,
     }
   },
 })

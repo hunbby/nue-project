@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 import BoardIndex from '@/pages/admin/board/BoardIndex.vue'
+import BoardWrite from '@/pages/admin/board/BoardWrite.vue'
 import { store } from '@/store/index'
 
 import AppLayout from '../layout/app-layout.vue'
@@ -123,6 +124,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'board',
         path: 'board',
         component: BoardIndex,
+      },
+      {
+        name: 'boardWrite',
+        path: 'boardWrite',
+        component: BoardWrite,
       },
       {
         name: 'markup',

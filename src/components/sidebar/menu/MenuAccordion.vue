@@ -10,7 +10,7 @@
             <va-icon :name="route.meta.icon" class="va-sidebar-item__icon" />
 
             <va-sidebar-item-title>
-              {{ $t(route.displayName) }}
+              {{ route.displayName }}
             </va-sidebar-item-title>
 
             <va-icon
