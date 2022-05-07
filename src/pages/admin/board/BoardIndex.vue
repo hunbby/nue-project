@@ -20,7 +20,7 @@ import data from '@/data/tables/markup-table/data.json'
 import BoardList from './BoardList.vue'
 
 export default defineComponent({
-  name: 'Board',
+  name: 'BoardIndex',
   components: { BoardList },
   setup() {
     const router = useRouter()

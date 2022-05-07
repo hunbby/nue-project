@@ -54,7 +54,12 @@ export default {
       return !!item.children
     },
     isRouteActive(item) {
-      return item.name === this.$route.name
+      console.log('item', item)
+      console.log('route', this.$route.matched)
+      return (
+        item.name === this.$route.matched[this.$route.matched.length - 1].name ||
+        item.name === this.$route.matched[1].name
+      )
     },
     isItemExpanded(item) {
       if (!item.children) {
