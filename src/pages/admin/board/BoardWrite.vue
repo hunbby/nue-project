@@ -5,10 +5,10 @@
         <div id="refEditor" ref="refEditor"></div>
         <br />
         <div class="row justify--end paginationButtons-left">
-          <va-button class="mr-2 mb-2">목록</va-button>
+          <va-button class="mr-2 mb-2">List</va-button>
         </div>
         <div class="row justify--end paginationButtons-right">
-          <va-button class="mr-2 mb-2" @click="getHTML">저장</va-button>
+          <va-button class="mr-2 mb-2" @click="getHTML">Save</va-button>
         </div>
       </va-card-content>
     </va-card>
@@ -33,7 +33,7 @@ export default defineComponent({
 
     const getHTML = () => {
       console.log('test')
-      let html = refEditor.value?.invoke('getHtml')
+      let html = refEditor.value.invoke('getHtml')
       console.log(html)
     }
 
