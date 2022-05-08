@@ -54,8 +54,8 @@ export default {
       return !!item.children
     },
     isRouteActive(item) {
-      console.log('item', item)
-      console.log('route', this.$route.matched)
+      // console.log('item', item)
+      // console.log('route', this.$route.matched)
       return (
         item.name === this.$route.matched[this.$route.matched.length - 1].name ||
         item.name === this.$route.matched[1].name

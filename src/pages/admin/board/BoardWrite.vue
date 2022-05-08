@@ -1,57 +1,63 @@
 <template>
   <div class="markup-tables flex">
-    <va-card :title="$t('tables.stripedHoverable')">
+    <va-card>
       <va-card-content>
-        <div id="refEditor" ref="refEditor"></div>
+        <div id="refEditor">
+          <v-md-editor
+            v-model="text"
+            height="500px"
+            :disabled-menus="[]"
+            @upload-image="handleUploadImage"
+          ></v-md-editor>
+        </div>
         <br />
         <div class="row justify--end paginationButtons-left">
           <va-button class="mr-2 mb-2">List</va-button>
         </div>
         <div class="row justify--end paginationButtons-right">
-          <va-button class="mr-2 mb-2" @click="getHTML">Save</va-button>
+          <va-button class="mr-2 mb-2">Save</va-button>
         </div>
       </va-card-content>
     </va-card>
   </div>
+  <div class="cards">
+    <div class="flex xs12">
+      <div class="cards-container row d-flex wrap align--start">
+        <va-card>
+          <va-card-title>데이터 확인용</va-card-title>
+          <va-card-content>{{ text }}</va-card-content>
+        </va-card>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import '@toast-ui/editor/dist/toastui-editor.css'
-
-import Editor from '@toast-ui/editor'
-import { defineComponent, onMounted, ref } from 'vue'
-
-import data from '@/data/tables/markup-table/data.json'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'BoardWrite',
   components: {},
   setup() {
-    const refEditor = ref(null)
+    const text = ref('')
 
-    const users = data.slice(0, 8)
+    return { text }
+  },
+  methods: {
+    handleUploadImage(event: any, insertImage: any, files: any) {
+      // Get the files and upload them to the file server, then insert the corresponding content into the editor
+      var reader = new FileReader()
+      reader.readAsDataURL(files[0])
+      console.log(reader)
 
-    const getHTML = () => {
-      console.log('test')
-      let html = refEditor.value.invoke('getHtml')
-      console.log(html)
-    }
-
-    onMounted(() => {
-      const editor = new Editor({
-        el: refEditor.value,
-        height: '700px',
-        initialEditType: 'markdown',
-        previewStyle: 'vertical',
+      // Here is just an example
+      insertImage({
+        url: reader.result,
+        desc: 'desc',
+        // width: 'auto',
+        // height: 'auto',
       })
-      editor.getMarkdown()
-    })
-
-    return {
-      users,
-      getHTML,
-      refEditor,
-    }
+    },
   },
 })
 </script>

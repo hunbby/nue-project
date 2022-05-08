@@ -13,8 +13,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@toast-ui/editor": "^3.1.5",
-    "@toast-ui/editor-plugin-code-syntax-highlight": "^3.0.0",
+    "@kangc/v-md-editor": "^2.3.15",
     "amcharts3": "^3.21.15",
     "ammap3": "^3.21.15",
     "axios": "^0.25.0",
