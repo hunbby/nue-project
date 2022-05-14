@@ -10,7 +10,6 @@ import { defineComponent, onMounted, PropType, Ref, ref, toRefs, watch } from 'v
 
 interface TuiEditorSetupData {
   editorDiv: Ref
-  getHTMLdata: () => string
 }
 
 export default defineComponent({
@@ -36,7 +35,7 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    value: {
+    modelHTMLvalue: {
       type: String,
       default: '',
     },
@@ -96,12 +95,7 @@ export default defineComponent({
       editor.setMarkdown(modelValue.value)
     })
 
-    const getHTMLdata = () => {
-      editor.getHTML()
-      return editor.getHTML()
-    }
-
-    return { editorDiv, getHTMLdata }
+    return { editorDiv }
   },
 })
 </script>

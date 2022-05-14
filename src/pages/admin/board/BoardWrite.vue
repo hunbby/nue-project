@@ -10,20 +10,10 @@
           <va-button class="mr-2 mb-2">List</va-button>
         </div>
         <div class="row justify--end paginationButtons-right">
-          <va-button class="mr-2 mb-2">Save</va-button>
+          <va-button class="mr-2 mb-2" @click="saveData">Save</va-button>
         </div>
       </va-card-content>
     </va-card>
-  </div>
-  <div class="cards">
-    <div class="flex xs12">
-      <div class="cards-container row d-flex wrap align--start">
-        <va-card>
-          <va-card-title>데이터 확인용</va-card-title>
-          <va-card-content>{{ modelValue }}</va-card-content>
-        </va-card>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -38,7 +28,11 @@ export default defineComponent({
   setup() {
     const modelValue = ref('test')
 
-    return { modelValue }
+    const saveData = () => {
+      console.log('saveEditorData', modelValue)
+    }
+
+    return { modelValue, saveData }
   },
 })
 </script>
