@@ -75,21 +75,9 @@ export default defineComponent({
               console.log(file)
               const param = new FormData()
               param.append('upload', file)
-              FileService.fileUpload(param)
-              // request({
-              //   headers: { 'Content-Type': 'multipart/form-data' },
-              //   url: '/uploads',
-              //   method: 'POST',
-              //   data: param,
-              // })
-              //   .then((res) => {
-              //     const { data } = res
-              //     const { url, name } = data
-              //     callback(url, name)
-              //   })
-              //   .catch((err) => {
-              //     console.log(err)
-              //   })
+              FileService.fileUpload(param).then((result) => {
+                callback(window.URL.createObjectURL(result), 'alt text')
+              })
             },
           },
         })
