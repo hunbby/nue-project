@@ -7,6 +7,9 @@ import '@toast-ui/editor/dist/toastui-editor.css'
 
 import { Editor } from '@toast-ui/editor'
 import { defineComponent, onMounted, PropType, Ref, ref, toRefs, watch } from 'vue'
+import { useStore } from 'vuex'
+
+import FileService from '@/services/file/file-service'
 
 interface TuiEditorSetupData {
   editorDiv: Ref
@@ -41,6 +44,8 @@ export default defineComponent({
     },
   },
   setup(props, { emit }): TuiEditorSetupData {
+    const store = useStore()
+
     const { modelValue } = toRefs(props)
 
     let editor: Editor
@@ -66,11 +71,11 @@ export default defineComponent({
             },
           },
           hooks: {
-            addImageBlobHook: (fileOrBlob, callback) => {
+            addImageBlobHook: (file, callback) => {
+              console.log(file)
               const param = new FormData()
-              param.append('file', fileOrBlob)
-
-              console.log(param)
+              param.append('upload', file)
+              FileService.fileUpload(param)
               // request({
               //   headers: { 'Content-Type': 'multipart/form-data' },
               //   url: '/uploads',
