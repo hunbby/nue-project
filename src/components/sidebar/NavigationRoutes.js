@@ -48,6 +48,13 @@ export default {
     //   ],
     // },
     {
+      name: 'board',
+      displayName: '게시판 테스트',
+      meta: {
+        icon: 'vuestic-iconset-tables',
+      },
+    },
+    {
       name: 'markup',
       displayName: 'menu.tables',
       meta: {

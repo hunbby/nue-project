@@ -1,4 +1,4 @@
-import { ref, computed } from "vue"
+import { computed, ref } from 'vue'
 import { mergeGlobalConfig } from 'vuestic-ui'
 
 export const THEME_NAMES = {
@@ -40,8 +40,8 @@ export const COLOR_THEMES = [
       },
       VaCardTitle: {
         textColor: 'dark',
-      }
-    }
+      },
+    },
   },
   {
     name: THEME_NAMES.DARK,
@@ -74,8 +74,8 @@ export const COLOR_THEMES = [
       },
       VaCardTitle: {
         textColor: 'dark',
-      }
-    }
+      },
+    },
   },
   {
     name: THEME_NAMES.SEMI_DARK,
@@ -108,8 +108,8 @@ export const COLOR_THEMES = [
       },
       VaCardTitle: {
         textColor: 'dark',
-      }
-    }
+      },
+    },
   },
   {
     name: THEME_NAMES.ORIGINAL,
@@ -142,8 +142,8 @@ export const COLOR_THEMES = [
       },
       VaCardTitle: {
         textColor: 'dark',
-      }
-    }
+      },
+    },
   },
 ]
 
@@ -154,12 +154,14 @@ export const useTheme = () => {
     themeNameRef.value = themeName
     const theme = COLOR_THEMES.find((theme) => theme.name === themeName)
 
-    if (!theme) { throw new Error('Theme not found') }
+    if (!theme) {
+      throw new Error('Theme not found')
+    }
 
     mergeGlobalConfig({ colors: theme.colors as any, components: theme.components })
   }
 
-  const theme = computed(() =>  COLOR_THEMES.find((theme) => theme.name === themeNameRef.value))
-  
+  const theme = computed(() => COLOR_THEMES.find((theme) => theme.name === themeNameRef.value))
+
   return { setTheme, themeName: themeNameRef, theme }
 }

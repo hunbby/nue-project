@@ -1,12 +1,17 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
+import Board from '@/pages/admin/board/Board.vue'
+import BoardIndex from '@/pages/admin/board/BoardIndex.vue'
+import BoardWrite from '@/pages/admin/board/BoardWrite.vue'
+import { store } from '@/store/index'
+
 import AppLayout from '../layout/app-layout.vue'
 import AuthLayout from '../layout/auth-layout.vue'
-import Dashboard from '../pages/admin/dashboard/Dashboard.vue'
-import DataTables from '../pages/admin/tables/data-tables/DataTables.vue'
+// import page404Layout from '../layout/page-404-layout.vue'
+// import Dashboard from '../pages/admin/dashboard/Dashboard.vue'
+// import DataTables from '../pages/admin/tables/data-tables/DataTables.vue'
 import MarkupTables from '../pages/admin/tables/markup-tables/MarkupTables.vue'
 import UIRoute from '../pages/admin/ui/route'
-import RouteViewComponent from './route-view.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -117,6 +122,24 @@ const routes: Array<RouteRecordRaw> = [
       //   ],
       // },
       {
+        name: 'board',
+        path: 'board',
+        component: Board,
+        redirect: { name: 'boardIndex' },
+        children: [
+          {
+            name: 'boardIndex',
+            path: 'boardIndex',
+            component: BoardIndex,
+          },
+          {
+            name: 'boardWrite',
+            path: 'boardWrite',
+            component: BoardWrite,
+          },
+        ],
+      },
+      {
         name: 'markup',
         path: 'markup',
         component: MarkupTables,
@@ -140,23 +163,23 @@ const routes: Array<RouteRecordRaw> = [
         //   },
         // ],
       },
-      {
-        name: 'pages',
-        path: 'pages',
-        component: RouteViewComponent,
-        children: [
-          {
-            name: '404-pages',
-            path: '404-pages',
-            component: () => import('@/pages/admin/pages/404PagesPage.vue'),
-          },
-          {
-            name: 'faq',
-            path: 'faq',
-            component: () => import('@/pages/admin/pages/FaqPage.vue'),
-          },
-        ],
-      },
+      // {
+      //   name: 'pages',
+      //   path: 'pages',
+      //   component: RouteViewComponent,
+      //   children: [
+      //     {
+      //       name: '404-pages',
+      //       path: '404-pages',
+      //       component: () => import('@/pages/admin/pages/404PagesPage.vue'),
+      //     },
+      //     {
+      //       name: 'faq',
+      //       path: 'faq',
+      //       component: () => import('@/pages/admin/pages/FaqPage.vue'),
+      //     },
+      //   ],
+      // },
       UIRoute,
     ],
   },
@@ -185,11 +208,47 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    name: 'pages',
+    path: '/pages',
+    component: AppLayout,
+    children: [
+      {
+        name: '404-pages',
+        path: '404-pages',
+        component: () => import('@/pages/admin/pages/404PagesPage.vue'),
+      },
+      {
+        name: 'faq',
+        path: 'faq',
+        component: () => import('@/pages/admin/pages/FaqPage.vue'),
+      },
+    ],
+  },
 ]
 
 export const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach((to, _form, next) => {
+  store.dispatch('authModule/tokenCheck').then(
+    () => {
+      console.log('router 토큰 체크 성공')
+      const publicPages = ['/auth/login', '/auth/signup']
+      const authRequired = !publicPages.includes(to.path)
+      const loggedIncheck = store.getters['authModule/logginInChekc']
+      if (authRequired && !loggedIncheck) {
+        next('/login')
+      } else {
+        next()
+      }
+    },
+    (error) => {
+      console.log('router 토큰 체크 실패', error)
+    }
+  )
 })
 
 export default router

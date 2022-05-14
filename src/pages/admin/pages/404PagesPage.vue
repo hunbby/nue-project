@@ -1,15 +1,9 @@
 <template>
   <div class="not-found-pages">
     <div class="row">
-      <div
-        class="flex xs12 sm6 lg4 xl3"
-        v-for="(item, index) in items"
-        :key="index"
-      >
-        <va-card
-          class="not-found-pages__cards text--center"
-        >
-          <va-image :src="item.imageUrl" style="max-height: 200px;"/>
+      <div v-for="(item, index) in items" :key="index" class="flex xs12 sm6 lg4 xl3">
+        <va-card class="not-found-pages__cards text--center">
+          <va-image :src="item.imageUrl" style="max-height: 200px" />
           <va-card-content>
             {{ item.label }}
             <div class="not-found-pages__button-container pt-3 mb-0">
@@ -24,10 +18,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-  name: 'not-found-pages',
-  data () {
+  name: 'NotFoundPages',
+  data() {
     return {
       items: [
         {

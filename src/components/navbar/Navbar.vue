@@ -9,7 +9,7 @@
             :color="colors.primary"
             @click="isSidebarMinimized = !isSidebarMinimized"
           />
-          <router-link :to="{ name: 'markup' }">
+          <router-link :to="{ name: 'board' }">
             <vuestic-logo class="logo" />
           </router-link>
         </div>
@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { computed } from 'vue'
 import { useColors } from 'vuestic-ui'
 import { useStore } from 'vuex'

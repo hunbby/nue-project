@@ -1,84 +1,105 @@
 <template>
   <form @submit.prevent="onsubmit()">
     <va-input
-      v-model="email"
+      v-model="signUpData.userId"
       class="mb-3"
-      type="email"
+      type="id"
       :label="'id'"
-      :error="!!emailErrors.length"
-      :error-messages="emailErrors"
+      :error="!!signUpData.emailErrors.length"
+      :error-messages="signUpData.emailErrors"
     />
 
     <va-input
-      v-model="password"
+      v-model="signUpData.userPw"
       class="mb-3"
       type="password"
       :label="'password'"
-      :error="!!passwordErrors.length"
-      :error-messages="passwordErrors"
+      :error="!!signUpData.passwordErrors.length"
+      :error-messages="signUpData.passwordErrors"
     />
 
     <div class="auth-layout__options d-flex align--center justify--space-between">
-      <va-checkbox
-        v-model="agreedToTerms"
-        class="mb-0"
-        :error="!!agreedToTermsErrors.length"
-        :error-messages="agreedToTermsErrors"
-      >
-        <template #label>
-          <span class="ml-1">
-            {{ $t('auth.agree') }}
-            <span class="link">{{ $t('auth.termsOfUse') }}</span>
-          </span>
-        </template>
-      </va-checkbox>
+      <div class="mb-0"></div>
       <router-link class="ml-1 link" :to="{ name: 'recover-password' }">
         {{ $t('auth.recover_password') }}
       </router-link>
     </div>
 
     <div class="d-flex justify--center mt-3">
-      <va-button @click="onsubmit" class="my-0">{{ $t('auth.sign_up') }}</va-button>
+      <va-button class="my-0" @click="onsubmit">{{ $t('auth.sign_up') }}</va-button>
     </div>
   </form>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { computed, defineComponent, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+
+export interface SignUpForm {
+  userId: string
+  userPw: string
+  emailErrors: string[]
+  passwordErrors: string[]
+}
+
+export default defineComponent({
   name: 'Signup',
-  data() {
-    return {
-      email: '',
-      password: '',
-      agreedToTerms: false,
+  setup() {
+    const store = useStore()
+    const router = useRouter()
+
+    const signUpData = reactive<SignUpForm>({
+      userId: '',
+      userPw: '',
       emailErrors: [],
       passwordErrors: [],
-      agreedToTermsErrors: [],
-    }
-  },
-  computed: {
-    formReady() {
-      return !(
-        this.emailErrors.length ||
-        this.passwordErrors.length ||
-        this.agreedToTermsErrors.length
-      )
-    },
-  },
-  methods: {
-    onsubmit() {
-      this.emailErrors = this.email ? [] : ['Email is required']
-      this.passwordErrors = this.password ? [] : ['Password is required']
-      this.agreedToTermsErrors = this.agreedToTerms
-        ? []
-        : ['You must agree to the terms of use to continue']
-      if (!this.formReady) {
+    }) as SignUpForm
+
+    const formReady = computed(() => {
+      return !(signUpData.emailErrors.length || signUpData.passwordErrors.length)
+    })
+
+    const onsubmit = () => {
+      // 에러 메세지 초기화
+      signUpData.emailErrors = []
+      signUpData.passwordErrors = []
+
+      if (signUpData.userId.length == 0) {
+        let text = 'Id를 입력하세요'
+        signUpData.emailErrors.push(text)
+      }
+      if (signUpData.userPw.length == 0) {
+        let text = 'Pw를 입력하세요'
+        signUpData.passwordErrors.push(text)
+      }
+      if (!formReady.value) {
         return
       }
-      this.$router.push({ name: 'login' })
-    },
+
+      store.dispatch('authModule/register', signUpData).then(
+        (res) => {
+          if (res.resltCd == '0000') {
+            console.log('auth 모듈 로그인 호출 되었습니다.')
+            router.push({ name: 'login' })
+          } else {
+            alert(res.data.msg)
+          }
+        },
+        (error) => {
+          console.log(error)
+          return false
+        }
+      )
+    }
+
+    return {
+      signUpData,
+      formReady,
+      onsubmit,
+    }
   },
-}
+})
 </script>
 
 <style lang="scss"></style>

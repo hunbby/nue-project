@@ -1,16 +1,30 @@
 import axios from 'axios'
+import { useStore } from 'vuex'
 
+import TokenService from '@/services/token/token-service'
+
+axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_API
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
+axios.defaults.withCredentials = true
+
+const store = useStore()
 
 // Add a request interceptor
 axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    console.log('request interceptor!!!!', config)
+    console.log('request interceptor', config)
+    const token = TokenService.getLocalAccessToken()
+    if (!config.headers) {
+      config.headers = {}
+    }
+    config.headers['accessToken'] = token
     return config
   },
   function (error) {
     // Do something with request error
+    console.log('reauest interceptor ERROR', error)
     return Promise.reject(error)
   }
 )
@@ -20,13 +34,34 @@ axios.interceptors.response.use(
   (response) => {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    console.log('response interceptor!!!!')
+    console.log('response interceptor')
     return response
   },
-  function (error) {
+  async function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    console.log('response interceptor ERROR', error)
+
+    const originalConfig = error.config
+
+    if (originalConfig.url !== '/signin' && originalConfig._retry) {
+      originalConfig._retry = true
+
+      try {
+        const rs = await axios.post('/api/cms/refreshtoken', {
+          accessToken: TokenService.getLocalAccessToken(),
+          refreshToken: TokenService.getLocalRefreshToken(),
+        })
+        console.log('interceptor 리프레시 토큰 체크 결과', rs)
+        const { accessToken } = rs.data
+        store.dispatch('authModule/refreshToken', accessToken)
+        TokenService.updateLocalAccessToken(accessToken)
+      } catch (_error) {
+        console.log('axios intercepter refreshToken errror', _error)
+        return Promise.reject(_error)
+      }
+    }
+
     return Promise.reject(error)
   }
 )

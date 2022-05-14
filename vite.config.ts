@@ -1,5 +1,6 @@
 // 나중을 위한 세팅 다국어 처리용 (템플릿 예제가 i18n 으로 되어있음 서버 사용 다국어로 변경하기전까지 사용할 예정)
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import { defineConfig } from 'vite'
@@ -8,14 +9,6 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   server: {
     port: 18080,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:18090',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
   },
   resolve: {
     alias: {
@@ -26,5 +19,16 @@ export default defineConfig({
     },
     extensions: ['.js', '.ts'],
   },
-  plugins: [vue()],
+  build: {
+    chunkSizeWarningLimit: 1600,
+  },
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: {},
+        javascriptEnabled: true,
+      },
+    },
+  },
+  plugins: [vue(), viteCommonjs()],
 })
