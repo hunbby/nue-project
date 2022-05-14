@@ -2,13 +2,8 @@
   <div class="markup-tables flex">
     <va-card>
       <va-card-content>
-        <div id="refEditor">
-          <v-md-editor
-            v-model="text"
-            height="500px"
-            :disabled-menus="[]"
-            @upload-image="handleUploadImage"
-          ></v-md-editor>
+        <div id="editorDev">
+          <TuiEditor v-model="modelValue" />
         </div>
         <br />
         <div class="row justify--end paginationButtons-left">
@@ -25,7 +20,7 @@
       <div class="cards-container row d-flex wrap align--start">
         <va-card>
           <va-card-title>데이터 확인용</va-card-title>
-          <va-card-content>{{ text }}</va-card-content>
+          <va-card-content>{{ modelValue }}</va-card-content>
         </va-card>
       </div>
     </div>
@@ -35,29 +30,15 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
+import TuiEditor from '@/components/tuiEditor/TuiEditor.vue'
+
 export default defineComponent({
   name: 'BoardWrite',
-  components: {},
+  components: { TuiEditor },
   setup() {
-    const text = ref('')
+    const modelValue = ref('test')
 
-    return { text }
-  },
-  methods: {
-    handleUploadImage(event: any, insertImage: any, files: any) {
-      // Get the files and upload them to the file server, then insert the corresponding content into the editor
-      var reader = new FileReader()
-      reader.readAsDataURL(files[0])
-      console.log(reader)
-
-      // Here is just an example
-      insertImage({
-        url: reader.result,
-        desc: 'desc',
-        // width: 'auto',
-        // height: 'auto',
-      })
-    },
+    return { modelValue }
   },
 })
 </script>
@@ -85,7 +66,7 @@ export default defineComponent({
   }
 }
 
-#refEditor {
+#editorDev {
   margin-bottom: 50px;
 }
 </style>
