@@ -7,7 +7,9 @@
         </div>
         <br />
         <div class="row justify--end paginationButtons-left">
-          <va-button class="mr-2 mb-2">List</va-button>
+          <router-link :to="{ name: 'board' }">
+            <va-button class="mr-2 mb-2">List</va-button>
+          </router-link>
         </div>
         <div class="row justify--end paginationButtons-right">
           <va-button class="mr-2 mb-2" @click="saveData">Save</va-button>

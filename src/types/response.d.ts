@@ -26,3 +26,9 @@ declare interface CommentResponse {
 declare interface CommentsResponse {
   comments: ArticleComment[]
 }
+
+declare interface ServerResponse {
+  resltCd: string
+  resltMsg: string
+  data: any
+}
