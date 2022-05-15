@@ -103,6 +103,8 @@ export const authModule: Module<AuthModuleState, RootState> = {
       }
       if (result) {
         state.status.loggedIn = true
+      } else {
+        state.status.loggedIn = false
       }
     },
   },

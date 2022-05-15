@@ -43,22 +43,28 @@ axios.interceptors.response.use(
     console.log('response interceptor ERROR', error)
 
     const originalConfig = error.config
-
-    if (originalConfig.url !== '/signin' && originalConfig._retry) {
-      originalConfig._retry = true
-
-      try {
-        const rs = await axios.post('/api/cms/refreshtoken', {
-          accessToken: TokenService.getLocalAccessToken(),
-          refreshToken: TokenService.getLocalRefreshToken(),
-        })
-        console.log('interceptor 리프레시 토큰 체크 결과', rs)
-        const { accessToken } = rs.data
-        store.dispatch('authModule/refreshToken', accessToken)
-        TokenService.updateLocalAccessToken(accessToken)
-      } catch (_error) {
-        console.log('axios intercepter refreshToken errror', _error)
-        return Promise.reject(_error)
+    if (error.response.status == 401) {
+      if (originalConfig.url !== '/signin') {
+        try {
+          const params = {
+            accessToken: TokenService.getLocalAccessToken(),
+            refreshToken: TokenService.getLocalRefreshToken(),
+          }
+          const rs = await axios.post('/refreshtoken', params)
+          console.log('interceptor 리프레시 토큰 체크 결과', rs)
+          const { accessToken } = rs.data
+          store.dispatch('authModule/refreshToken', accessToken)
+          TokenService.updateLocalAccessToken(accessToken)
+        } catch (_error) {
+          console.log('axios intercepter refreshToken errror', _error)
+          const accessToken = TokenService.getLocalAccessToken()
+          const refreshToken = TokenService.getLocalRefreshToken()
+          if (!(accessToken && refreshToken)) {
+            alert('토큰 만료로 인해 로그아웃 되었습니다.')
+            window.location.reload()
+          }
+          // return Promise.reject(_error)
+        }
       }
     }
 
