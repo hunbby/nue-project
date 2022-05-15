@@ -82,6 +82,9 @@ export default defineComponent({
           if (res.resltCd == '0000') {
             console.log('auth 모듈 로그인 호출 되었습니다.')
             router.push({ name: 'login' })
+          } else if (res.resltCd == '0900') {
+            let text = res.data.msg
+            signUpData.emailErrors.push(text)
           } else {
             alert(res.data.msg)
           }

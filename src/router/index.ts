@@ -3,6 +3,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Board from '@/pages/admin/board/Board.vue'
 import BoardIndex from '@/pages/admin/board/BoardIndex.vue'
 import BoardWrite from '@/pages/admin/board/BoardWrite.vue'
+import TokenService from '@/services/token/token-service'
 import { store } from '@/store/index'
 
 import AppLayout from '../layout/app-layout.vue'
@@ -241,6 +242,9 @@ router.beforeEach((to, _form, next) => {
       const loggedIncheck = store.getters['authModule/logginInChekc']
       if (authRequired && !loggedIncheck) {
         next('/login')
+      } else if (authRequired && loggedIncheck) {
+        TokenService.refreshtokenCheck()
+        next()
       } else {
         next()
       }

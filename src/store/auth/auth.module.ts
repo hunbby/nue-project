@@ -1,7 +1,6 @@
 import { Module } from 'vuex'
 
 import AuthService from '@/services/auth/auth-service'
-import TokenService from '@/services/token/token-service'
 import { RootState } from '@/store/index'
 
 export interface AuthModuleState {
@@ -68,7 +67,6 @@ export const authModule: Module<AuthModuleState, RootState> = {
       commit('refreshToken', accessToken)
     },
     tokenCheck({ commit }) {
-      TokenService.refreshtokenCheck()
       commit('tokenCheck')
     },
   },

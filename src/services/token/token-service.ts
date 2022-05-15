@@ -44,6 +44,7 @@ class TokenService {
       if (resltCd == '0000') {
         console.log('토큰 만료 기간이 아닙니다.')
       } else if (resltCd == '0900') {
+        localStorage.removeItem('user')
         alert('토큰 만료로 인해 로그아웃 되었습니다.')
         window.location.reload()
       } else {
@@ -56,6 +57,7 @@ class TokenService {
       const accessToken = this.getLocalAccessToken()
       const refreshToken = this.getLocalRefreshToken()
       if (!(accessToken && refreshToken)) {
+        localStorage.removeItem('user')
         alert('토큰 만료로 인해 로그아웃 되었습니다.')
         window.location.reload()
       }
