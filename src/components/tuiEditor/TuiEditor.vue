@@ -1,5 +1,11 @@
 <template>
   <div ref="editorDiv"></div>
+  <div class="imagePrevie">
+    <va-card class="imagePrevieCard">
+      <va-card-title>이미지 업로드 목록</va-card-title>
+      <va-card-content><div class="uploadImgContent"></div></va-card-content>
+    </va-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -7,7 +13,6 @@ import '@toast-ui/editor/dist/toastui-editor.css'
 
 import { Editor } from '@toast-ui/editor'
 import { defineComponent, onMounted, PropType, Ref, ref, toRefs, watch } from 'vue'
-import { useStore } from 'vuex'
 
 import FileService from '@/services/file/file-service'
 
@@ -24,7 +29,7 @@ export default defineComponent({
     },
     height: {
       type: String,
-      default: '600px',
+      default: '500px',
     },
     previewStyle: {
       type: String as PropType<'tab' | 'vertical'>,
@@ -44,8 +49,6 @@ export default defineComponent({
     },
   },
   setup(props, { emit }): TuiEditorSetupData {
-    const store = useStore()
-
     const { modelValue } = toRefs(props)
 
     let editor: Editor
@@ -76,11 +79,10 @@ export default defineComponent({
               const param = new FormData()
               param.append('upload', file)
               FileService.fileUpload(param).then((result) => {
-                console.log(result.data)
                 const baseUrl = import.meta.env.VITE_APP_BASE_API
                 const fileLocation = baseUrl + result.data.filePath
-                console.log('fileLocation', fileLocation)
-                callback(fileLocation, 'alt text')
+                const fileSeq = result.data.fileSeq
+                callback(fileLocation, fileSeq.toString())
               })
             },
           },
@@ -92,22 +94,19 @@ export default defineComponent({
       editor.setMarkdown(modelValue.value)
     })
 
-    const dataURItoBlob = (dataURI: string) => {
-      // convert base64/URLEncoded data component to raw binary data held in a string
-      let byteString
-      if (dataURI.split(',')[0].indexOf('base64') >= 0) byteString = atob(dataURI.split(',')[1])
-      else byteString = unescape(dataURI.split(',')[1])
-      // separate out the mime component
-      let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-      // write the bytes of the string to a typed array
-      let ia = new Uint8Array(byteString.length)
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i)
-      }
-      return new Blob([ia], { type: mimeString })
-    }
-
     return { editorDiv }
   },
 })
 </script>
+<style>
+.imagePrevie {
+  border: 1px solid #dadde6;
+  height: 200px;
+  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', '나눔바른고딕',
+    'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic', sans-serif;
+  border-radius: 4px;
+}
+.imagePrevieCard {
+  height: 100%;
+}
+</style>
