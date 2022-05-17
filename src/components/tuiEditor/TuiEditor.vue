@@ -3,7 +3,11 @@
   <div class="imagePrevie">
     <va-card class="imagePrevieCard">
       <va-card-title>이미지 업로드 목록</va-card-title>
-      <va-card-content><div class="uploadImgContent"></div></va-card-content>
+      <va-card-content>
+        <div class="uploadImgContent">
+          <ImageContanier :file-data="fileData" />
+        </div>
+      </va-card-content>
     </va-card>
   </div>
 </template>
@@ -12,16 +16,20 @@
 import '@toast-ui/editor/dist/toastui-editor.css'
 
 import { Editor } from '@toast-ui/editor'
-import { defineComponent, onMounted, PropType, Ref, ref, toRefs, watch } from 'vue'
+import { defineComponent, onMounted, PropType, reactive, Ref, ref, toRefs, watch } from 'vue'
 
 import FileService from '@/services/file/file-service'
 
+import ImageContanier from './ImageContanier.vue'
+
 interface TuiEditorSetupData {
   editorDiv: Ref
+  fileData: Array<any>
 }
 
 export default defineComponent({
   name: 'TuiEditor',
+  components: { ImageContanier },
   props: {
     modelValue: {
       type: String,
@@ -43,13 +51,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    modelHTMLvalue: {
-      type: String,
-      default: '',
-    },
   },
   setup(props, { emit }): TuiEditorSetupData {
     const { modelValue } = toRefs(props)
+    const fileData = reactive([])
 
     let editor: Editor
     const editorDiv = ref<HTMLElement>()
@@ -82,6 +87,11 @@ export default defineComponent({
                 const baseUrl = import.meta.env.VITE_APP_BASE_API
                 const fileLocation = baseUrl + result.data.filePath
                 const fileSeq = result.data.fileSeq
+                const dataSet = {
+                  fileSeq: fileSeq,
+                  fileLocation: fileLocation,
+                }
+                fileData.push(dataSet)
                 callback(fileLocation, fileSeq.toString())
               })
             },
@@ -94,14 +104,14 @@ export default defineComponent({
       editor.setMarkdown(modelValue.value)
     })
 
-    return { editorDiv }
+    return { editorDiv, fileData }
   },
 })
 </script>
 <style>
 .imagePrevie {
   border: 1px solid #dadde6;
-  height: 200px;
+  min-height: 225px;
   font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', '나눔바른고딕',
     'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic', sans-serif;
   border-radius: 4px;
