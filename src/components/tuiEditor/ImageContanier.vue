@@ -2,18 +2,21 @@
   <div>
     <div class="file-preview-content-container">
       <div class="file-preview-container">
-        <div class="file-preview-wrapper">
-          <!-- file-preview-wrapper 이놈이 반복되야함 -->
-          <div class="file-close-button">x</div>
-          <!-- <img :src="file.preview" /> -->
-          <img src="http://localhost:18090/cms/images/2022/20220517213248773.png" />
-          {{ fileData }}
+        <div v-if="fileData.length">
+          <div v-for="file in fileData" :key="file" class="file-preview-wrapper">
+            <div class="file-close-button">x</div>
+            <img :src="file.fileLocation" :data-file-seq="file.fileSeq" />
+          </div>
+        </div>
+        <div v-else>
+          <div class="file-preview-wrapper">
+            <p></p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-<!-- v-for="(file, index) in files" :key="index"   @click="fileDeleteButton" :name="file.number"-->
 <script lang="ts">
 import { defineComponent, onMounted, PropType, Ref, ref, toRefs, watch } from 'vue'
 
@@ -41,6 +44,12 @@ export default defineComponent({
 }
 
 .file-preview-wrapper > img {
+  position: relative;
+  width: 190px;
+  height: 130px;
+  z-index: 10;
+}
+.file-preview-wrapper > p {
   position: relative;
   width: 190px;
   height: 130px;

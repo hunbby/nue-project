@@ -88,11 +88,11 @@ export default defineComponent({
                 const fileLocation = baseUrl + result.data.filePath
                 const fileSeq = result.data.fileSeq
                 const dataSet = {
-                  fileSeq: fileSeq,
-                  fileLocation: fileLocation,
+                  fileSeq: fileSeq.toString(),
+                  fileLocation: fileLocation.toString(),
                 }
                 fileData.push(dataSet)
-                callback(fileLocation, fileSeq.toString())
+                callback(fileLocation, dataSet.fileSeq.toString())
               })
             },
           },
