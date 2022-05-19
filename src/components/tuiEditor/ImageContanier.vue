@@ -4,8 +4,8 @@
       <div class="file-preview-container">
         <div v-if="fileData.length">
           <div v-for="file in fileData" :key="file" class="file-preview-wrapper">
-            <div class="file-close-button">x</div>
-            <img :src="file.fileLocation" :data-file-seq="file.fileSeq" />
+            <div class="file-close-button" :data-file-seq="file.fileSeq" @click="deleteImg">x</div>
+            <img :src="file.fileLocation" />
           </div>
         </div>
         <div v-else>
@@ -20,11 +20,42 @@
 <script lang="ts">
 import { defineComponent, onMounted, PropType, Ref, ref, toRefs, watch } from 'vue'
 
+import fileService from '@/services/file/file-service'
+
+declare interface FileDatas {
+  fileSeq: string | null
+  fileTypeCd: string | null
+  ognlFileNm: string | null
+  makeFileNm: string | null
+  thumFileNm: string | null
+  filePath: string | null
+  fileHash: string | null
+  creationId: string | null
+  creationDt: string | null
+  fileDesc: string | null
+}
+
 export default defineComponent({
   name: 'ImageContanier',
   props: ['fileData'],
-  setup() {
-    return {}
+  setup(props, { emit }) {
+    const deleteImg = (event: Event) => {
+      const target = event.target as Element
+      const fileSeq = target.getAttribute('data-file-seq')
+      console.log('deleteImg', target.getAttribute('data-file-seq'))
+      const data = {
+        fileSeq: fileSeq,
+      } as FileDatas
+      const fileList = []
+      fileList.push(data)
+
+      const files = { files: fileList }
+      fileService.fileDel(files)
+
+      console.log('props', props.fileData)
+      props.fileData.filter((data) => data.fileSeq !== fileSeq)
+    }
+    return { deleteImg }
   },
 })
 </script>
