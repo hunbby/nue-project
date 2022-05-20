@@ -2,8 +2,8 @@
   <div>
     <div class="file-preview-content-container">
       <div class="file-preview-container">
-        <div v-if="fileData.length">
-          <div v-for="file in fileData" :key="file" class="file-preview-wrapper">
+        <div v-if="fileDataList.length">
+          <div v-for="file in fileDataList" :key="file" class="file-preview-wrapper">
             <div class="file-close-button" :data-file-seq="file.fileSeq" @click="deleteImg">x</div>
             <img :src="file.fileLocation" />
           </div>
@@ -18,7 +18,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, PropType, Ref, ref, toRefs, watch } from 'vue'
+import { computed, defineComponent, onMounted, PropType, Ref, ref, toRefs, watch } from 'vue'
 
 import fileService from '@/services/file/file-service'
 
@@ -37,8 +37,25 @@ declare interface FileDatas {
 
 export default defineComponent({
   name: 'ImageContanier',
-  props: ['fileData'],
+  props: {
+    fileData: {
+      type: Array,
+      default: [],
+    },
+  },
   setup(props, { emit }) {
+    // const fileDataList = computed(() => {
+    //   return props.fileData
+    // })
+    const fileDataList = computed(() => {
+      let resultDataList = []
+      const orgData = props.fileData
+      for (let i = 0; i < orgData.length; i++) {
+        let setData = orgData[i] as FileDatas
+        resultDataList.push(setData)
+      }
+      return resultDataList
+    })
     const deleteImg = (event: Event) => {
       const target = event.target as Element
       const fileSeq = target.getAttribute('data-file-seq')
@@ -51,11 +68,8 @@ export default defineComponent({
 
       const files = { files: fileList }
       fileService.fileDel(files)
-
-      console.log('props', props.fileData)
-      props.fileData.filter((data) => data.fileSeq !== fileSeq)
     }
-    return { deleteImg }
+    return { deleteImg, fileDataList }
   },
 })
 </script>
@@ -69,6 +83,7 @@ export default defineComponent({
   flex-wrap: wrap;
 }
 .file-preview-wrapper {
+  float: left;
   padding: 10px;
   position: relative;
   min-height: 130px;
