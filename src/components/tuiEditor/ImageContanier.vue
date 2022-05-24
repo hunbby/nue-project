@@ -18,7 +18,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType, Ref, ref, toRefs, watch } from 'vue'
+import { computed, defineComponent, onMounted, PropType, Ref, ref, toRef, toRefs, watch } from 'vue'
 
 import fileService from '@/services/file/file-service'
 
@@ -44,18 +44,30 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    const fileDataList = ref([])
+    const { fileData } = toRefs(props)
+    onMounted(() => {
+      fileDataList.value = fileData.value
+    })
+    watch(fileData, () => {
+      console.log('start?')
+      fileDataList.value = fileData.value
+    })
+
+    console.log('fileData', fileData)
+    console.log('fileDataList', fileDataList)
     // const fileDataList = computed(() => {
     //   return props.fileData
     // })
-    const fileDataList = computed(() => {
-      let resultDataList = []
-      const orgData = props.fileData
-      for (let i = 0; i < orgData.length; i++) {
-        let setData = orgData[i] as FileDatas
-        resultDataList.push(setData)
-      }
-      return resultDataList
-    })
+    // const fileDataList = computed(() => {
+    //   let resultDataList = []
+    //   const orgData = props.fileData
+    //   for (let i = 0; i < orgData.length; i++) {
+    //     let setData = orgData[i] as FileDatas
+    //     resultDataList.push(setData)
+    //   }
+    //   return resultDataList
+    // })
     const deleteImg = (event: Event) => {
       const target = event.target as Element
       const fileSeq = target.getAttribute('data-file-seq')
