@@ -44,30 +44,17 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const fileDataList = ref([])
+    const fileDataList = ref<FileDatas[]>([])
     const { fileData } = toRefs(props)
+
     onMounted(() => {
-      fileDataList.value = fileData.value
-    })
-    watch(fileData, () => {
-      console.log('start?')
-      fileDataList.value = fileData.value
+      fileDataList.value = fileData.value as FileDatas[]
     })
 
-    console.log('fileData', fileData)
-    console.log('fileDataList', fileDataList)
-    // const fileDataList = computed(() => {
-    //   return props.fileData
-    // })
-    // const fileDataList = computed(() => {
-    //   let resultDataList = []
-    //   const orgData = props.fileData
-    //   for (let i = 0; i < orgData.length; i++) {
-    //     let setData = orgData[i] as FileDatas
-    //     resultDataList.push(setData)
-    //   }
-    //   return resultDataList
-    // })
+    watch(fileData, () => {
+      fileDataList.value = fileData.value as FileDatas[]
+    })
+
     const deleteImg = (event: Event) => {
       const target = event.target as Element
       const fileSeq = target.getAttribute('data-file-seq')
@@ -80,6 +67,9 @@ export default defineComponent({
 
       const files = { files: fileList }
       fileService.fileDel(files)
+      fileDataList.value = fileDataList.value.filter((data: FileDatas) => {
+        return data.fileSeq != fileSeq
+      })
     }
     return { deleteImg, fileDataList }
   },
