@@ -3,7 +3,7 @@
     <div class="file-preview-content-container">
       <div class="file-preview-container">
         <div v-if="fileDataList.length">
-          <div v-for="file in fileDataList" :key="file" class="file-preview-wrapper">
+          <div v-for="file in fileDataList" :key="file.fileSeq" class="file-preview-wrapper">
             <div class="file-close-button" :data-file-seq="file.fileSeq" @click="deleteImg">x</div>
             <img :src="file.fileLocation" />
           </div>
@@ -28,7 +28,7 @@ declare interface FileDatas {
   ognlFileNm: string | null
   makeFileNm: string | null
   thumFileNm: string | null
-  filePath: string | null
+  fileLocation: string | null
   fileHash: string | null
   creationId: string | null
   creationDt: string | null
@@ -65,8 +65,11 @@ export default defineComponent({
       const fileList = []
       fileList.push(data)
 
+      // 파일 제거 서비스
       const files = { files: fileList }
       fileService.fileDel(files)
+
+      // ref 반영
       fileDataList.value = fileDataList.value.filter((data: FileDatas) => {
         return data.fileSeq != fileSeq
       })
