@@ -24,7 +24,7 @@ import ImageContanier from './ImageContanier.vue'
 
 interface TuiEditorSetupData {
   editorDiv: Ref
-  fileData: Array<any>
+  fileData: Array<unknown>
 }
 
 export default defineComponent({

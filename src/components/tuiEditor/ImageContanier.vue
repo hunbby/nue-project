@@ -23,12 +23,12 @@ import { computed, defineComponent, onMounted, PropType, Ref, ref, toRef, toRefs
 import fileService from '@/services/file/file-service'
 
 declare interface FileDatas {
-  fileSeq: string | null
+  fileSeq: string | ''
   fileTypeCd: string | null
   ognlFileNm: string | null
   makeFileNm: string | null
   thumFileNm: string | null
-  fileLocation: string | null
+  fileLocation: string | ''
   fileHash: string | null
   creationId: string | null
   creationDt: string | null
@@ -40,10 +40,12 @@ export default defineComponent({
   props: {
     fileData: {
       type: Array,
-      default: [],
+      default: () => {
+        return []
+      },
     },
   },
-  setup(props, { emit }) {
+  setup(props) {
     const fileDataList = ref<FileDatas[]>([])
     const { fileData } = toRefs(props)
 
