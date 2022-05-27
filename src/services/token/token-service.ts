@@ -1,7 +1,8 @@
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
 
 import axios from '@/plugins/axios/axios'
-const store = useStore()
+import { store } from '@/store/index'
+// const store = useStore()
 class TokenService {
   getLocalRefreshToken() {
     const user = this.localStorageGetUserData()

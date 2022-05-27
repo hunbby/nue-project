@@ -1,14 +1,15 @@
 import axios from 'axios'
-import { useStore } from 'vuex'
 
 import TokenService from '@/services/token/token-service'
+// import { useStore } from 'vuex'
+// import { store } from '@/store/index'
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_API
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 axios.defaults.withCredentials = true
 
-const store = useStore()
+// const store = useStore()
 
 // Add a request interceptor
 axios.interceptors.request.use(
