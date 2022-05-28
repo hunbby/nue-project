@@ -54,6 +54,7 @@ export default {
     },
     {
       path: 'icons',
+      name: 'icon-set',
       component: () => import('@/pages/admin/ui/icons/Icons.vue'),
       children: [
         {
