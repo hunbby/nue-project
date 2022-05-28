@@ -2,6 +2,10 @@
   <div class="markup-tables flex">
     <va-card>
       <va-card-content>
+        <div class="row">
+          <va-select v-model="tags.tag" class="flex xs8 md1" label="Tag" :options="tags.items" />
+          <va-input v-model="title" class="flex xs4 md11" label="Title" />
+        </div>
         <div id="editorDev">
           <TuiEditor v-model="modelValue" />
         </div>
@@ -29,12 +33,18 @@ export default defineComponent({
   components: { TuiEditor },
   setup() {
     const modelValue = ref('test')
+    const title = ref()
+    const tags = ref({
+      tag: '',
+      items: ['success', 'info', 'danger', 'warning', 'gray', 'dark'],
+    })
 
     const saveData = () => {
+      console.log('title', title)
       console.log('saveEditorData', modelValue)
     }
 
-    return { modelValue, saveData }
+    return { modelValue, tags, title, saveData }
   },
 })
 </script>

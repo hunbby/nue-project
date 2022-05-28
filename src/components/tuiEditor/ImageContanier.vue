@@ -18,7 +18,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType, Ref, ref, toRef, toRefs, watch } from 'vue'
+import { defineComponent, onMounted, ref, toRefs, watch } from 'vue'
 
 import fileService from '@/services/file/file-service'
 

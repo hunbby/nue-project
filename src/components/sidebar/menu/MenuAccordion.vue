@@ -1,5 +1,5 @@
 <template>
-  <va-accordion class="sidebar-accordion va-sidebar__menu__inner" v-model="accordionValue" multiply>
+  <va-accordion v-model="accordionValue" class="sidebar-accordion va-sidebar__menu__inner" multiply>
     <va-collapse v-for="(route, idx) in items" :key="idx">
       <template #header>
         <va-sidebar-item
