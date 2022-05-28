@@ -1,20 +1,35 @@
 <template>
   <div ref="editorDiv"></div>
+  <div class="imagePrevie">
+    <va-card class="imagePrevieCard">
+      <va-card-title>이미지 업로드 목록</va-card-title>
+      <va-card-content>
+        <div class="uploadImgContent">
+          <ImageContanier :file-data="fileData" />
+        </div>
+      </va-card-content>
+    </va-card>
+  </div>
 </template>
 
 <script lang="ts">
 import '@toast-ui/editor/dist/toastui-editor.css'
 
 import { Editor } from '@toast-ui/editor'
-import { defineComponent, onMounted, PropType, Ref, ref, toRefs, watch } from 'vue'
+import { defineComponent, onMounted, PropType, reactive, Ref, ref, toRefs, watch } from 'vue'
+
+import FileService from '@/services/file/file-service'
+
+import ImageContanier from './ImageContanier.vue'
 
 interface TuiEditorSetupData {
   editorDiv: Ref
-  getHTMLdata: () => string
+  fileData: Array<unknown>
 }
 
 export default defineComponent({
   name: 'TuiEditor',
+  components: { ImageContanier },
   props: {
     modelValue: {
       type: String,
@@ -22,7 +37,7 @@ export default defineComponent({
     },
     height: {
       type: String,
-      default: '600px',
+      default: '500px',
     },
     previewStyle: {
       type: String as PropType<'tab' | 'vertical'>,
@@ -36,13 +51,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    value: {
-      type: String,
-      default: '',
-    },
   },
   setup(props, { emit }): TuiEditorSetupData {
     const { modelValue } = toRefs(props)
+    const fileData = reactive([])
 
     let editor: Editor
     const editorDiv = ref<HTMLElement>()
@@ -67,25 +79,21 @@ export default defineComponent({
             },
           },
           hooks: {
-            addImageBlobHook: (fileOrBlob, callback) => {
+            addImageBlobHook: (file, callback) => {
+              console.log(file)
               const param = new FormData()
-              param.append('file', fileOrBlob)
-
-              console.log(param)
-              // request({
-              //   headers: { 'Content-Type': 'multipart/form-data' },
-              //   url: '/uploads',
-              //   method: 'POST',
-              //   data: param,
-              // })
-              //   .then((res) => {
-              //     const { data } = res
-              //     const { url, name } = data
-              //     callback(url, name)
-              //   })
-              //   .catch((err) => {
-              //     console.log(err)
-              //   })
+              param.append('upload', file)
+              FileService.fileUpload(param).then((result) => {
+                const baseUrl = import.meta.env.VITE_APP_BASE_API
+                const fileLocation = baseUrl + result.data.filePath
+                const fileSeq = result.data.fileSeq
+                const dataSet = {
+                  fileSeq: fileSeq.toString(),
+                  fileLocation: fileLocation.toString(),
+                }
+                fileData.push(dataSet)
+                callback(fileLocation, dataSet.fileSeq.toString())
+              })
             },
           },
         })
@@ -96,12 +104,19 @@ export default defineComponent({
       editor.setMarkdown(modelValue.value)
     })
 
-    const getHTMLdata = () => {
-      editor.getHTML()
-      return editor.getHTML()
-    }
-
-    return { editorDiv, getHTMLdata }
+    return { editorDiv, fileData }
   },
 })
 </script>
+<style>
+.imagePrevie {
+  border: 1px solid #dadde6;
+  min-height: 225px;
+  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', '나눔바른고딕',
+    'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic', sans-serif;
+  border-radius: 4px;
+}
+.imagePrevieCard {
+  height: 100%;
+}
+</style>

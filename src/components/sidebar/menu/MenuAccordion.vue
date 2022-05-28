@@ -54,12 +54,16 @@ export default {
       return !!item.children
     },
     isRouteActive(item) {
-      // console.log('item', item)
+      // console.log('item', item.name)
       // console.log('route', this.$route.matched)
-      return (
-        item.name === this.$route.matched[this.$route.matched.length - 1].name ||
-        item.name === this.$route.matched[1].name
-      )
+
+      return this.$route.matched.some((data) => {
+        let nameChk = item.name
+        if (nameChk === 'icon-sets') {
+          nameChk = 'icon-set'
+        }
+        return data.name === nameChk
+      })
     },
     isItemExpanded(item) {
       if (!item.children) {

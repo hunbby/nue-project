@@ -131,7 +131,7 @@ export default defineComponent({
     }
     // 로그인 되어있는데 로그아웃을 하지 않고 로그인 화면으로 넘어가려고 했을 경우 이동
     if (this.loggedIn) {
-      this.$router.push({ name: 'markup' })
+      this.$router.push({ name: 'board' })
     }
   },
 })

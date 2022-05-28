@@ -1,14 +1,15 @@
 import axios from 'axios'
-import { useStore } from 'vuex'
 
 import TokenService from '@/services/token/token-service'
+// import { useStore } from 'vuex'
+// import { store } from '@/store/index'
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_API
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 axios.defaults.withCredentials = true
 
-const store = useStore()
+// const store = useStore()
 
 // Add a request interceptor
 axios.interceptors.request.use(
@@ -43,22 +44,9 @@ axios.interceptors.response.use(
     console.log('response interceptor ERROR', error)
 
     const originalConfig = error.config
-
-    if (originalConfig.url !== '/signin' && originalConfig._retry) {
-      originalConfig._retry = true
-
-      try {
-        const rs = await axios.post('/api/cms/refreshtoken', {
-          accessToken: TokenService.getLocalAccessToken(),
-          refreshToken: TokenService.getLocalRefreshToken(),
-        })
-        console.log('interceptor 리프레시 토큰 체크 결과', rs)
-        const { accessToken } = rs.data
-        store.dispatch('authModule/refreshToken', accessToken)
-        TokenService.updateLocalAccessToken(accessToken)
-      } catch (_error) {
-        console.log('axios intercepter refreshToken errror', _error)
-        return Promise.reject(_error)
+    if (error.response.status == 401) {
+      if (originalConfig.url !== '/signin') {
+        TokenService.refreshtokenCheck()
       }
     }
 

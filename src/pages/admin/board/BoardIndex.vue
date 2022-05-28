@@ -4,7 +4,9 @@
       <va-card-content>
         <BoardList />
         <div class="row justify--end paginationButtons-right">
-          <va-button class="mr-2 mb-2" @click="openWritePage">게시글 추가</va-button>
+          <router-link :to="{ name: 'boardWrite' }">
+            <va-button class="mr-2 mb-2">게시글 추가</va-button>
+          </router-link>
         </div>
       </va-card-content>
     </va-card>
@@ -13,7 +15,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useRouter } from 'vue-router'
 
 import data from '@/data/tables/markup-table/data.json'
 
@@ -23,29 +24,22 @@ export default defineComponent({
   name: 'BoardIndex',
   components: { BoardList },
   setup() {
-    const router = useRouter()
     const users = data.slice(0, 8)
 
-    const getStatusColor = (status: string) => {
-      if (status === 'paid') {
-        return 'success'
-      }
+    // const getStatusColor = (status: string) => {
+    //   if (status === 'paid') {
+    //     return 'success'
+    //   }
 
-      if (status === 'processing') {
-        return 'info'
-      }
+    //   if (status === 'processing') {
+    //     return 'info'
+    //   }
 
-      return 'danger'
-    }
-
-    const openWritePage = () => {
-      router.push({ name: 'boardWrite' })
-    }
+    //   return 'danger'
+    // }
 
     return {
       users,
-      getStatusColor,
-      openWritePage,
     }
   },
 })

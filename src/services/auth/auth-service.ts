@@ -26,7 +26,7 @@ class AuthService {
     const result = await axios
       .post('/signup', _user)
       .then((res) => {
-        console.log('signUp result', res)
+        console.log('signUp result', res.data)
         return res.data
       })
       .catch((error) => {
