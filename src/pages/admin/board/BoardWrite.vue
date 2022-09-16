@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 import TuiEditor from '@/components/tuiEditor/TuiEditor.vue'
 export default defineComponent({
