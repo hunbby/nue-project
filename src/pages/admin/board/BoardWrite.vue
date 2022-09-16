@@ -2,10 +2,17 @@
   <div class="markup-tables flex">
     <va-card>
       <va-card-content>
-        <div class="row">
-          <va-select v-model="tags.tag" class="flex xs8 md1" label="Tag" :options="tags.items" />
-          <va-input v-model="title" class="flex xs4 md11" label="Title" />
-        </div>
+        <va-input v-model="title" class="mb-4" label="Title" />
+        <va-input v-model="tagItemSet" class="mb-4" label="Tag" @input="tagInsert" />
+        <va-chip
+          v-for="(tag, index) in tagItem"
+          :key="index"
+          class="mb-1 mr-1"
+          color="primary"
+          @click="delTag"
+        >
+          {{ tag }}
+        </va-chip>
         <div id="editorDev">
           <TuiEditor v-model="modelValue" />
         </div>
@@ -24,27 +31,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 
 import TuiEditor from '@/components/tuiEditor/TuiEditor.vue'
-
 export default defineComponent({
   name: 'BoardWrite',
   components: { TuiEditor },
   setup() {
     const modelValue = ref('test')
     const title = ref()
-    const tags = ref({
-      tag: '',
-      items: ['success', 'info', 'danger', 'warning', 'gray', 'dark'],
-    })
+    const tagItemSet = ref('')
+    const tagItem = ref<string[]>([])
+
+    const tagInsert = () => {
+      let tagSet = tagItemSet.value
+      if (tagSet.includes(',')) {
+        let tag: string = tagSet.substring(0, tagSet.indexOf(','))
+        tagItem.value.push(tag)
+        tagItemSet.value = ''
+      }
+    }
+
+    const delTag = (e: Event) => {
+      let target = (e.target as HTMLInputElement).textContent
+      tagItem.value = tagItem.value.filter((data) => {
+        return data !== target
+      })
+    }
 
     const saveData = () => {
       console.log('title', title)
       console.log('saveEditorData', modelValue)
     }
 
-    return { modelValue, tags, title, saveData }
+    return { modelValue, tagItemSet, tagItem, title, saveData, tagInsert, delTag }
   },
 })
 </script>
