@@ -3,11 +3,18 @@
     <va-card>
       <va-card-content>
         <va-input v-model="title" class="mb-4" label="Title" />
-        <va-input v-model="tagItemSet" class="mb-4" label="Tag" @input="tagInsert" />
+        <div>test</div>
+        <va-input
+          id="tagItemSet"
+          v-model="tagItemSet"
+          :class="{ 'mb-1': tagItem.length > 0, 'mb-4': tagItem.length == 0 }"
+          label="Tag"
+          @input="tagInsert"
+        />
         <va-chip
           v-for="(tag, index) in tagItem"
           :key="index"
-          class="mb-1 mr-1"
+          class="mb-3 mr-1"
           color="primary"
           @click="delTag"
         >
@@ -42,13 +49,25 @@ export default defineComponent({
     const title = ref()
     const tagItemSet = ref('')
     const tagItem = ref<string[]>([])
+    const validation = ref<boolean>(true)
 
     const tagInsert = () => {
       let tagSet = tagItemSet.value
+      let sizeChk = tagItem.value.length
+      if (sizeChk == 5) {
+        alert('태그는 최대 5개만 설정 가능합니다.')
+        tagItemSet.value = ''
+      }
       if (tagSet.includes(',')) {
         let tag: string = tagSet.substring(0, tagSet.indexOf(','))
-        tagItem.value.push(tag)
-        tagItemSet.value = ''
+        let tagChk = tagItem.value.indexOf(tag) !== -1
+        if (tagChk) {
+          alert('중복된 태그 입니다.')
+          tagItemSet.value = ''
+        } else {
+          tagItem.value.push(tag)
+          tagItemSet.value = ''
+        }
       }
     }
 
@@ -59,9 +78,24 @@ export default defineComponent({
       })
     }
 
-    const saveData = () => {
-      console.log('title', title)
-      console.log('saveEditorData', modelValue)
+    const saveData = (e: Event) => {
+      e.preventDefault()
+      validationChk()
+      if (validation.value) {
+        console.log('title', title)
+        console.log('saveEditorData', modelValue)
+        console.log('tagItem', tagItem)
+      }
+    }
+
+    const validationChk = () => {
+      validation.value = true // 초기화
+      let sizeChk = tagItem.value.length
+      if (sizeChk == 0) {
+        document.getElementById('tagItemSet')?.focus()
+        alert('태그는 최소 1개 설정 해주세요')
+        validation.value = false
+      }
     }
 
     return { modelValue, tagItemSet, tagItem, title, saveData, tagInsert, delTag }
