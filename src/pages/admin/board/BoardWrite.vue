@@ -2,13 +2,21 @@
   <div class="markup-tables flex">
     <va-card>
       <va-card-content>
-        <va-input v-model="title" class="mb-4" label="Title" />
+        <va-input
+          v-model="title"
+          class="mb-4"
+          label="Title"
+          :error="!!titleError.length"
+          :error-messages="titleError"
+        />
         <div>test</div>
         <va-input
           id="tagItemSet"
           v-model="tagItemSet"
           :class="{ 'mb-1': tagItem.length > 0, 'mb-4': tagItem.length == 0 }"
           label="Tag"
+          :error="!!tagError.length"
+          :error-messages="tagError"
           @input="tagInsert"
         />
         <va-chip
@@ -50,23 +58,31 @@ export default defineComponent({
     const tagItemSet = ref('')
     const tagItem = ref<string[]>([])
     const validation = ref<boolean>(true)
+    const titleError = ref<string[]>([])
+    const tagError = ref<string[]>([])
 
     const tagInsert = () => {
+      tagError.value = [] //remove error msg
       let tagSet = tagItemSet.value
       let sizeChk = tagItem.value.length
-      if (sizeChk == 5) {
-        alert('태그는 최대 5개만 설정 가능합니다.')
+      if (sizeChk >= 5) {
+        tagError.value.push('태그는 최대 5개만 설정 가능합니다.')
         tagItemSet.value = ''
       }
       if (tagSet.includes(',')) {
         let tag: string = tagSet.substring(0, tagSet.indexOf(','))
-        let tagChk = tagItem.value.indexOf(tag) !== -1
-        if (tagChk) {
-          alert('중복된 태그 입니다.')
+        if (tag == '') {
+          tagError.value.push('태그를 입력해주세요')
           tagItemSet.value = ''
         } else {
-          tagItem.value.push(tag)
-          tagItemSet.value = ''
+          let tagChk = tagItem.value.indexOf(tag) !== -1
+          if (tagChk) {
+            tagError.value.push('중복된 태그 입니다.')
+            tagItemSet.value = ''
+          } else {
+            tagItem.value.push(tag)
+            tagItemSet.value = ''
+          }
         }
       }
     }
@@ -89,16 +105,37 @@ export default defineComponent({
     }
 
     const validationChk = () => {
+      errMsgReset()
       validation.value = true // 초기화
+      console.log('title', title.value == undefined)
+      if (title.value == '' || title.value == undefined) {
+        titleError.value.push('타이틀을 입력해주세요')
+        validation.value = false
+      }
       let sizeChk = tagItem.value.length
       if (sizeChk == 0) {
         document.getElementById('tagItemSet')?.focus()
-        alert('태그는 최소 1개 설정 해주세요')
+        tagError.value.push('태그는 최소 1개 설정 해주세요')
         validation.value = false
       }
     }
 
-    return { modelValue, tagItemSet, tagItem, title, saveData, tagInsert, delTag }
+    const errMsgReset = () => {
+      titleError.value = []
+      tagError.value = []
+    }
+
+    return {
+      modelValue,
+      tagItemSet,
+      tagItem,
+      title,
+      titleError,
+      tagError,
+      saveData,
+      tagInsert,
+      delTag,
+    }
   },
 })
 </script>
