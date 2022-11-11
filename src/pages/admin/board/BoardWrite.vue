@@ -9,7 +9,6 @@
           :error="!!titleError.length"
           :error-messages="titleError"
         />
-        <div>test</div>
         <va-input
           id="tagItemSet"
           v-model="tagItemSet"
